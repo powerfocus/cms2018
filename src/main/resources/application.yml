@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost/jcms2018?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Chongqing&useSSL=true
+    username: py
+    password: 123
+  thymeleaf:
+    cache: false

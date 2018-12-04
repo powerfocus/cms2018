@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/fragments/layout::h('文章资讯')}"></head>
+<body>
+<div class="container">
+    <legend>添加新栏目</legend>
+    <div class="row">
+        <div class="col-md-10">
+            <form class="form form-horizontal" th:action="@{/admin/column/add}" th:object="${columntype}" method="post">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">栏目名：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input th:field="*{typename}" id="typename" name="typename" type="text" class="input-text" autocomplete="off" placeholder="栏目名" />
+                        <div class="Huialert Huialert-danger" th:if="${#fields.hasErrors('typename')}" th:errors="*{typename}"><i class="Hui-iconfont">&#xe6a6;</i></div>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">父栏目：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <span class="select-box">
+                            <select class="select" size="1" id="pid" name="pid">
+                                <option value="0" selected>顶级栏目</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">栏目描述：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <textarea th:field="*{col_describe}" id="col_describe" name="col_describe" class="textarea" placeholder="栏目描述..." rows="" cols=""></textarea>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                        <input class="btn btn-primary radius" type="submit" value="创建栏目">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<th:block th:insert="~{/admin/fragments/layout::f}" />
+<script type="text/javascript">
+    $(function() {
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+    });
+</script>
+</div>
+</body>
+</html>
