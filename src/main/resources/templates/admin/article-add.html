@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/fragments/layout::layout('添加文章资讯', ~{::body})}">
+<body>
+    <script th:src="@{/lib/ueditor/1.4.3/ueditor.config.js}"></script>
+    <script th:src="@{/lib/ueditor/1.4.3/ueditor.all.js}"></script>
+    <script th:src="@{/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js}"></script>
+    <legend>添加文章资讯</legend>
+    <div>
+        <form class="form form-horizontal" th:action="@{/admin/article/add}" method="post" th:object="${article}">
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="保存文章" />
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3" for="title">文章标题</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input th:field="*{title}" id="title" name="title" class="input-text" type="text" />
+                    <div class="Huialert Huialert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"><i class="Hui-iconfont">&#xe6a6;</i></div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3" for="shorttitle">短标题</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input th:field="*{shorttitle}" id="shorttitle" name="shorttitle" class="input-text" type="text" />
+                    <div class="Huialert Huialert-danger" th:if="${#fields.hasErrors('shorttitle')}" th:errors="*{shorttitle}"><i class="Hui-iconfont">&#xe6a6;</i></div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3" for="author">作者</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input th:field="*{author}" id="author" name="author" class="input-text" type="text" />
+                    <div class="Huialert Huialert-danger" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"><i class="Hui-iconfont">&#xe6a6;</i></div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3" for="columntype">所属栏目</label>
+                <div class="formControls col-xs-2 col-sm-2">
+                    <span class="select-box">
+                        <select th:field="*{columntype}" name="columntype" id="columntype" class="select" size="1">
+                            <option value="0"></option>
+                        </select>
+                    </span>
+                    <div class="Huialert Huialert-danger" th:if="${#fields.hasErrors('columntype')}" th:errors="*{columntype}"><i class="Hui-iconfont">&#xe6a6;</i></div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3" for="source">来源</label>
+                <div class="formControls col-xs-2 col-sm-2">
+                    <span class="select-box">
+                        <select th:field="*{source}" name="source" id="source" class="select" size="1">
+                            <option value="原创" selected>原创</option>
+                            <option value="网络">网络</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="Huialert Huialert-danger" th:if="${#fields.hasErrors('source')}" th:errors="*{source}"><i class="Hui-iconfont">&#xe6a6;</i></div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">是否审核</label>
+                <div class="formControls skin-minimal col-xs-8 col-sm-9">
+                    <div class="radio-box">
+                        <input type="radio" id="isvarify_y" name="isvarify" checked value="1" />
+                        <label for="isvarify_y">已审核</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" id="isvarify_n" name="isvarify" value="0" />
+                        <label for="isvarify_n">未审核</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3" for="content">内容</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <script th:field="*{content}" id="content" name="content" type="text/plain"></script>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="保存文章" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+        });
+        UE.getEditor('content', {
+            initialFrameHeight: 500,
+            serverUrl: '/admin/ueditor'
+        });
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        UE.Editor.prototype.getActionUrl = function(action) {
+            if (action == 'listimage') {
+                return '/admin/listimage';
+            } else {
+                return this._bkGetActionUrl.call(this, action);
+            }
+        }
+    </script>
+</body>
+</html>
