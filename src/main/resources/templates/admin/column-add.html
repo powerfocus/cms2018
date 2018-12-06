@@ -20,7 +20,7 @@
                         <span class="select-box">
                             <select class="select" size="1" id="pid" name="pid">
                                 <option value="0">顶级栏目</option>
-                                <option th:each="col : ${list}" th:value="${col.id}" th:text="${col.typename}"></option>
+                                <th:block th:each="it : ${list}"><option th:each="m : ${it}" th:value="${m.value.id}" th:text="|${m.key}${m.value.typename}|"></option></th:block>
                             </select>
                         </span>
                     </div>
