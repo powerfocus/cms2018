@@ -3,6 +3,7 @@ package org.py.controller.admin;
 import lombok.extern.java.Log;
 import org.py.mapper.ColumntypeMapper;
 import org.py.model.Columntype;
+import org.py.util.CategoryUtil;
 import org.py.util.TemplateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Log
 @Controller
@@ -25,22 +28,26 @@ public class ColumnController implements AdminBaseController {
     private final String TEMPLATESTYLE = "colstyle";
     private static final String NAV = TemplateUtil.topNav(Arrays.asList("栏目管理"));
     @Autowired
+    private CategoryUtil categoryUtil;
+    @Autowired
     private ColumntypeMapper mapper;
     @GetMapping({""})
     public String index(Model model) {
-        List<Columntype> columntypes = mapper.selectAll();
+        List<Map<String, Columntype>> list = new ArrayList<>();
+        categoryUtil.treeList(0, 0, list);
         model.addAttribute(TEMPLATECSS, CSS);
         model.addAttribute(TEMPLATESTYLE, STYLE);
         model.addAttribute("navpath", NAV);
-        model.addAttribute("list", columntypes);
+        model.addAttribute("list", list);
         return "admin/column";
     }
     @GetMapping({"add"})
     public String add(Columntype columntype, Model model) {
-        List<Columntype> columntypes = mapper.selectAll();
+        List<Map<String, Columntype>> list = new ArrayList<>();
+        categoryUtil.treeList(0, 0, list);
         model.addAttribute(TEMPLATECSS, CSS);
         model.addAttribute(TEMPLATESTYLE, STYLE);
-        model.addAttribute("list", columntypes);
+        model.addAttribute("list", list);
         return "admin/column-add";
     }
     @PostMapping({"add"})

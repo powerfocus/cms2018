@@ -19,20 +19,18 @@
                     <tr class="text-c">
                         <th width="25"><input type="checkbox" name="" value=""></th>
                         <th width="80">ID</th>
-                        <th width="80">分类名</th>
                         <th>描述</th>
                         <th width="120">操作</th>
                     </tr>
                     </thead>
-                    <tbody>
-                        <tr class="text-c" th:each="it : ${list}">
+                    <tbody th:each="it : ${list}">
+                        <tr class="text-c" th:each="m : ${it}">
                             <td><input type="checkbox" value="" name=""></td>
-                            <td th:text="${it.id}"></td>
-                            <td th:text="${it.typename}" class="text-l"></td>
-                            <td th:text="${it.col_describe}"></td>
+                            <td th:text="${m.value.id}"></td>
+                            <td th:text="|${m.key}${m.value.typename}|" class="text-l"></td>
                             <td class="f-14 td-manage">
-                                <a style="text-decoration:none" class="ml-5" th:onclick="edit([[${it.id}]])" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-                                <a style="text-decoration:none" class="ml-5" th:onclick="'article_del(this,'+${it.id}+')'" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                                <a style="text-decoration:none" class="ml-5" th:onclick="edit([[${m.value.id}]])" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+                                <a style="text-decoration:none" class="ml-5" th:onclick="'article_del(this,'+${m.value.id}+')'" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
                             </td>
                         </tr>
                     </tbody>
