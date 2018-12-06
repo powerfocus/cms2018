@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,7 +26,7 @@ public class ColumnController implements AdminBaseController {
     private static final String NAV = TemplateUtil.topNav(Arrays.asList("栏目管理"));
     @Autowired
     private ColumntypeMapper mapper;
-    @GetMapping({"", "index"})
+    @GetMapping({""})
     public String index(Model model) {
         List<Columntype> columntypes = mapper.selectAll();
         model.addAttribute(TEMPLATECSS, CSS);
@@ -36,8 +37,10 @@ public class ColumnController implements AdminBaseController {
     }
     @GetMapping({"add"})
     public String add(Columntype columntype, Model model) {
+        List<Columntype> columntypes = mapper.selectAll();
         model.addAttribute(TEMPLATECSS, CSS);
         model.addAttribute(TEMPLATESTYLE, STYLE);
+        model.addAttribute("list", columntypes);
         return "admin/column-add";
     }
     @PostMapping({"add"})
@@ -45,7 +48,29 @@ public class ColumnController implements AdminBaseController {
         if(errors.hasErrors())
             return "admin/column-add";
         int re = mapper.insert(columntype);
-        log.info(re + " column date save.");
-        return "redirect:/admin/column/add";
+        //return "redirect:/admin/column/add";
+        return "optSuccess";
+    }
+    @GetMapping({"edit/{id}"})
+    public String edit(@PathVariable(required = false) Integer id, Columntype columntype, Model model) {
+        model.addAttribute(TEMPLATECSS, CSS);
+        model.addAttribute(TEMPLATESTYLE, STYLE);
+        Columntype col = mapper.selectByPrimaryKey(id);
+        if(null != col) {
+            columntype.setId(col.getId());
+            columntype.setPid(col.getPid());
+            columntype.setTypename(col.getTypename());
+            columntype.setCol_describe(col.getCol_describe());
+        }
+        return "admin/column-edit";
+    }
+    @PostMapping({"edit"})
+    public String edit(Columntype columntype) {
+        if(columntype.getPid() == null) columntype.setPid(0l);
+        int re = mapper.updateByPrimaryKey(columntype);
+        if(re > 0)
+            return "optSuccess";
+        else
+            return "optFailure";
     }
 }

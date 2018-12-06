@@ -19,7 +19,8 @@
                     <div class="formControls col-xs-8 col-sm-9">
                         <span class="select-box">
                             <select class="select" size="1" id="pid" name="pid">
-                                <option value="0" selected>顶级栏目</option>
+                                <option value="0">顶级栏目</option>
+                                <option th:each="col : ${list}" th:value="${col.id}" th:text="${col.typename}"></option>
                             </select>
                         </span>
                     </div>
@@ -46,6 +47,9 @@
             radioClass: 'iradio-blue',
             increaseArea: '20%'
         });
+    });
+    $(window).unload(function() {
+        window.parent.location.reload();
     });
 </script>
 </div>
