@@ -33,6 +33,13 @@ public class CategoryUtilTest {
     }
     @Test
     public void test3() {
-
+        List<Map<String, Columntype>> list = new ArrayList<>();
+        util.treeList(9, 0, list);
+        list.forEach(it -> {
+            it.forEach((k, v) -> {
+                System.out.print(k);
+                System.out.println(v.getTypename());
+            });
+        });
     }
 }
