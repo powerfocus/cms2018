@@ -18,10 +18,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/h-ui.admin/css/H-ui.admin.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/lib/Hui-iconfont/1.0.8/iconfont.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/static/h-ui.admin/skin/default/skin.css}" id="skin"/>
-    <!--[if IE 6]>
-    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js"></script>
-    <script>DD_belatedPNG.fix('*');</script>
-    <![endif]-->
     <!--/meta 作为公共模版分离出去-->
 
     <title th:text="${title}"></title>
@@ -99,19 +95,19 @@
                 </ul>
             </dd>
         </dl>
-        <dl id="menu-picture">
-            <dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a href="picture-list.html" title="图片管理">图片管理</a></li>
-                </ul>
-            </dd>
-        </dl>
         <dl id="menu-product">
             <dt th:class="${colcss}"><i class="Hui-iconfont">&#xe620;</i>栏目管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd th:style="${colstyle}">
                 <ul>
                     <li><a th:href="@{/admin/column/}" title="分类管理">分类管理</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-picture">
+            <dt th:class="${explcss}"><i class="Hui-iconfont">&#xe613;</i> 服务器管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd th:style="${explstyle}">
+                <ul>
+                    <li><a th:href="@{/admin/explorer}" title="资源管理">资源管理器</a></li>
                 </ul>
             </dd>
         </dl>

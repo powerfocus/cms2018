@@ -3,8 +3,8 @@
 <head th:replace="~{/admin/fragments/layout::h('编辑栏目')}"></head>
 <body>
 <div class="container">
-    <legend>编辑栏目</legend>
     <div class="row">
+        <legend>编辑栏目</legend>
         <div class="col-md-10">
             <form class="form form-horizontal" th:action="@{/admin/column/edit}" th:object="${columntype}" method="post">
                 <div class="row cl">
