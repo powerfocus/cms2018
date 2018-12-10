@@ -2,8 +2,6 @@ package org.py.util;
 
 import org.py.mapper.ColumntypeMapper;
 import org.py.model.Columntype;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.util.Sqls;
 
@@ -11,11 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
 public final class CategoryUtil {
-    @Autowired
     private ColumntypeMapper mapper;
     public CategoryUtil() { }
+    public CategoryUtil(ColumntypeMapper mapper) {
+        this.mapper = mapper;
+    }
     public void tree(long pid, int level, StringBuffer strbuffer) {
         Example example = Example.builder(Columntype.class)
                 .where(Sqls.custom().andEqualTo("pid", pid)).build();

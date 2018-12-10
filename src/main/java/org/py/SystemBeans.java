@@ -1,5 +1,7 @@
 package org.py;
 
+import org.py.mapper.ColumntypeMapper;
+import org.py.util.CategoryUtil;
 import org.py.util.FilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,5 +21,11 @@ public class SystemBeans {
     public FilesUtil filesUtil() throws IOException {
         FilesUtil filesUtil = new FilesUtil(env.getProperty("rootpath"));
         return filesUtil;
+    }
+
+    @Bean
+    public CategoryUtil categoryUtil(ColumntypeMapper mapper) {
+        CategoryUtil categoryUtil = new CategoryUtil(mapper);
+        return categoryUtil;
     }
 }
