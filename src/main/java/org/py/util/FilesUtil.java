@@ -6,42 +6,43 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FilesUtil {
     private String rootpath;
     private Path root;
-    private List<Path> filelist;
-    private List<Path> dirlist;
-    private void init() throws IOException {
-        ClassPathResource resource = new ClassPathResource(rootpath);
-        Path root = Paths.get(resource.getFile().getAbsolutePath());
-        filelist = new ArrayList<>();
-        dirlist = new ArrayList<>();
-        Files.list(root)
-                .forEach(it -> {
-                    if(Files.isDirectory(it))
-                        dirlist.add(it);
-                    else
-                        filelist.add(it);
-                });
-    }
+    public static final String DIRS = "dirlist";
+    public static final String FILES = "filelist";
 
     public FilesUtil(String rootpath) throws IOException {
-        this.rootpath = rootpath;
-        init();
+        ClassPathResource resource = new ClassPathResource(rootpath);
+        root = Paths.get(resource.getFile().getAbsolutePath());
+    }
+
+    public Map<String, List<Path>> childlist(Path dir) throws IOException {
+        Map<String, List<Path>> map = new LinkedHashMap<>();
+        List<Path> dirlist = new ArrayList<>();
+        List<Path> filelist = new ArrayList<>();
+        if(null != dir && dir.isAbsolute()) {
+            Files.list(dir)
+                    .forEach(it -> {
+                        if(Files.isDirectory(it))
+                            dirlist.add(it);
+                        else
+                            filelist.add(it);
+                    });
+            map.put("dirlist", dirlist);
+            map.put("filelist", filelist);
+        }
+        return map;
     }
 
     public String getRootpath() {
         return rootpath;
     }
 
-    public List<Path> getFilelist() {
-        return filelist;
+    public Path getRoot() {
+        return root;
     }
 
-    public List<Path> getDirlist() {
-        return dirlist;
-    }
 }

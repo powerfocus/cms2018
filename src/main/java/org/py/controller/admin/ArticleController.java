@@ -25,7 +25,7 @@ import java.util.Map;
 public class ArticleController implements AdminBaseController {
     private final String TEMPLATECSS = "artcss";
     private final String TEMPLATESTYLE = "artstyle";
-    private static final String NAV = TemplateUtil.topNav(Arrays.asList("栏目管理"));
+    private static final String NAV = TemplateUtil.topNav(Arrays.asList("内容管理"));
     @Autowired
     private CategoryUtil categoryUtil;
     @GetMapping({"index"})
