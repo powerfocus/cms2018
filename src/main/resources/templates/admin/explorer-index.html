@@ -5,6 +5,14 @@
         <div class="row">
             <div class="col-md-10">
                 <legend>资源管理器</legend>
+                <table>
+                    <tr th:each="dir : ${dirlist}">
+                        <td><a th:href="@{|/admin/explorer/${util.relative(dir)}|}" th:text="|[${dir.getFileName()}]|"></a></td>
+                    </tr>
+                    <tr th:each="file: ${filelist}">
+                        <td><a href="javascript:;" th:text="${file.getFileName()}"></a></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
