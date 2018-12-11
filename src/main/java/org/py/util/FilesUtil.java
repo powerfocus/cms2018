@@ -19,6 +19,10 @@ public class FilesUtil {
         root = Paths.get(resource.getFile().getAbsolutePath());
     }
 
+    public Path relative(Path path) {
+        return root.relativize(path);
+    }
+
     public Map<String, List<Path>> childlist(Path dir) throws IOException {
         Map<String, List<Path>> map = new LinkedHashMap<>();
         List<Path> dirlist = new ArrayList<>();
@@ -31,8 +35,8 @@ public class FilesUtil {
                         else
                             filelist.add(it);
                     });
-            map.put("dirlist", dirlist);
-            map.put("filelist", filelist);
+            map.put(DIRS, dirlist);
+            map.put(FILES, filelist);
         }
         return map;
     }
