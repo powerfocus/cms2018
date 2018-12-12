@@ -4,16 +4,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-                <legend>资源管理器</legend>
-                <div class="Huialert Huialert-info">
+                <legend style="color: #222; text-shadow: 0px 1px 1px #555;">资源管理器</legend>
+                <div class="Huialert Huialert-info" style="color: #222; text-shadow: 0px 1px 1px #555; margin-bottom: 5px;">
                     <span th:text="|当前路径：${currentDir}|"></span>
                 </div>
-                <span>
+                <div>
                     <a class="btn btn-secondary radius" th:href="|@{/admin/explorer/}${up}|" data-toggle="tooltip" data-placement="right" title="返回上层">
                         <i class="Hui-iconfont">&#xe684;</i>
                     </a>
-                </span>
-                <table class="table table-bg table-border table-striped table-hover radius">
+                </div>
+                <table class="table table-bg table-border table-striped table-hover radius" style="color: #222; text-shadow: 0px 1px 1px #555;">
                     <thead>
                         <th>文件名</th>
                         <th>路径</th>
