@@ -23,6 +23,18 @@ public class FilesUtil {
         return root.relativize(path);
     }
 
+    public Path to(Path path) {
+        return Paths.get(root.toString(), path.toString());
+    }
+
+    public Path to(String path) {
+        return Paths.get(root.toString(), path);
+    }
+
+    public Path up(Path path) {
+        return path.resolveSibling(root);
+    }
+
     public Map<String, List<Path>> childlist(Path dir) throws IOException {
         Map<String, List<Path>> map = new LinkedHashMap<>();
         List<Path> dirlist = new ArrayList<>();

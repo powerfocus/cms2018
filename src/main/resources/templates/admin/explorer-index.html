@@ -5,12 +5,22 @@
         <div class="row">
             <div class="col-md-10">
                 <legend>资源管理器</legend>
-                <table>
+                <div class="Huialert Huialert-info" th:text="|当前路径：${currentDir}|"></div>
+                <table class="table table-bg table-border table-striped table-hover radius">
+                    <thead>
+                        <th>文件名</th>
+                        <th>路径</th>
+                        <th>操作</th>
+                    </thead>
                     <tr th:each="dir : ${dirlist}">
                         <td><a th:href="@{|/admin/explorer/${util.relative(dir)}|}" th:text="|[${dir.getFileName()}]|"></a></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr th:each="file: ${filelist}">
                         <td><a href="javascript:;" th:text="${file.getFileName()}"></a></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>

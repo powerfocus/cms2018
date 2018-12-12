@@ -41,4 +41,13 @@ public class FilesUtilTest {
         System.out.println("原路径：" + path);
         System.out.println("相对路径：" + util.relative(path));
     }
+    @Test
+    public void up() throws IOException {
+        Path root = util.getRoot();
+        Path admin = Paths.get(root.toString(), "admin");
+        //Path admin = Paths.get("C:\\Users\\Administrator\\IdeaProjects\\cms2018\\target\\classes");
+        System.out.println(admin);
+        System.out.println(admin.startsWith(root));
+        System.out.println(admin.resolveSibling(root));
+    }
 }

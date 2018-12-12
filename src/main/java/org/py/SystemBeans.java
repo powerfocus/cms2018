@@ -3,6 +3,7 @@ package org.py;
 import org.py.mapper.ColumntypeMapper;
 import org.py.util.CategoryUtil;
 import org.py.util.FilesUtil;
+import org.py.util.RestfulUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
@@ -21,6 +22,11 @@ public class SystemBeans {
     public FilesUtil filesUtil() throws IOException {
         FilesUtil filesUtil = new FilesUtil(env.getProperty("rootpath"));
         return filesUtil;
+    }
+
+    @Bean
+    public RestfulUtil restfulUtil() {
+        return new RestfulUtil();
     }
 
     @Bean
