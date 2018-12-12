@@ -35,8 +35,7 @@ public class ExplorerController implements AdminBaseController {
         String curr = restfulUtil.processURI(request.getRequestURI(), MAPPING);
         curr = null == curr || curr.equals("/") ? "" : curr;
         Path currentDir = Paths.get(futil.getRoot().toString(), curr);
-        String currpath = futil.relative(currentDir).toString().isEmpty() ? "/" : "/" + futil.relative(currentDir).toString();
-        System.out.println("当前路径：" + currpath);
+        String currpath = futil.relative(currentDir).toString().isEmpty() ? "/" : "/" + restfulUtil.separatorResolver(futil.relative(currentDir).toString());
         Map<String, List<Path>> childlist = futil.childlist(currentDir);
         List<Path> filelist = childlist.get(FilesUtil.FILES);
         List<Path> dirlist = childlist.get(FilesUtil.DIRS);
@@ -47,6 +46,7 @@ public class ExplorerController implements AdminBaseController {
         model.addAttribute("util", futil);
         model.addAttribute("dirlist", dirlist);
         model.addAttribute("filelist", filelist);
+        model.addAttribute("up", curr.isEmpty() ? "" : futil.relative(futil.up(currentDir)));
         return "/admin/explorer-index";
     }
 }

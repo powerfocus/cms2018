@@ -32,7 +32,7 @@ public class FilesUtil {
     }
 
     public Path up(Path path) {
-        return path.resolveSibling(root);
+        return path.getParent();
     }
 
     public Map<String, List<Path>> childlist(Path dir) throws IOException {

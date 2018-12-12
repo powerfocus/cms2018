@@ -44,10 +44,17 @@ public class FilesUtilTest {
     @Test
     public void up() throws IOException {
         Path root = util.getRoot();
-        Path admin = Paths.get(root.toString(), "admin");
+        Path admin = Paths.get(root.toString(), "static", "h-ui");
         //Path admin = Paths.get("C:\\Users\\Administrator\\IdeaProjects\\cms2018\\target\\classes");
         System.out.println(admin);
         System.out.println(admin.startsWith(root));
         System.out.println(admin.resolveSibling(root));
+    }
+    @Test
+    public void up2() throws IOException {
+        Path root = util.getRoot();
+        Path path = Paths.get(root.toString(), "static", "h-ui", "css");
+        System.out.println(path.toString());
+        System.out.println(path.getParent());
     }
 }

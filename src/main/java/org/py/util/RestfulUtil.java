@@ -9,4 +9,7 @@ public final class RestfulUtil {
     public String processURI(String uri, String mapping) {
         return uri.replace(mapping, "").replace(FSSEPARATOR, URISEPARATOR);
     }
+    public String separatorResolver(String path) {
+        return path.replace(FSSEPARATOR, URISEPARATOR);
+    }
 }

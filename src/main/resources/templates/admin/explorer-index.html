@@ -5,7 +5,14 @@
         <div class="row">
             <div class="col-md-10">
                 <legend>资源管理器</legend>
-                <div class="Huialert Huialert-info" th:text="|当前路径：${currentDir}|"></div>
+                <div class="Huialert Huialert-info">
+                    <span th:text="|当前路径：${currentDir}|"></span>
+                </div>
+                <span>
+                    <a class="btn btn-secondary radius" th:href="|@{/admin/explorer/}${up}|" data-toggle="tooltip" data-placement="right" title="返回上层">
+                        <i class="Hui-iconfont">&#xe684;</i>
+                    </a>
+                </span>
                 <table class="table table-bg table-border table-striped table-hover radius">
                     <thead>
                         <th>文件名</th>
