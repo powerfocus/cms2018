@@ -4,9 +4,7 @@ import org.py.util.FilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,5 +24,9 @@ public class FileExplorerController {
         lines.forEach(it -> strbuilder.append(it));
         model.addAttribute("content", strbuilder);
         return "/admin/file_text_explorer";
+    }
+    @PostMapping({"save_text"})
+    public String save_text(String editor) {
+        return "optSuccess";
     }
 }

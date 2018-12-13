@@ -5,11 +5,12 @@
 <script th:src="@{/lib/ueditor/1.4.3/ueditor.config.js}"></script>
 <script th:src="@{/lib/ueditor/1.4.3/ueditor.all.js}"></script>
 <script th:src="@{/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js}"></script>
+<script th:src="@{/lib/jquery/1.9.1/jquery.js}"></script>
     <div class="container">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-10" style="color: #222; text-shadow: 0px 1px 1px #555;">
                 <legend style="color: #222; text-shadow: 0px 1px 1px #555;">编辑文本文件</legend>
-                <form class="form form-horizontal" th:action="@{/admin/explorer/save_text}">
+                <form class="form form-horizontal" th:action="@{/admin/file/save_text}" method="post">
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">文件内容：</label>
                         <div class="formControls col-xs-8 col-sm-9">
@@ -38,6 +39,11 @@
                 return this._bkGetActionUrl.call(this, action);
             }
         }
+        $(function() {
+            $(window).unload(function() {
+                window.parent.location.reload();
+            });
+        });
     </script>
 </body>
 </html>
