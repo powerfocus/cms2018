@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/fragments/layout::layout('文章资讯', ~{::body})}">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/fragments/layout::layout('资源管理器', ~{::body})}">
 <body>
     <div class="container">
         <div class="row">
@@ -10,7 +10,7 @@
                 </div>
                 <div>
                     <a class="btn btn-secondary radius" th:href="|@{/admin/explorer/}${up}|" data-toggle="tooltip" data-placement="right" title="返回上层">
-                        <i class="Hui-iconfont">&#xe684;</i>
+                        <i class="Hui-iconfont">&#xe6d6;</i>
                     </a>
                 </div>
                 <table class="table table-bg table-border table-striped table-hover radius" style="color: #222; text-shadow: 0px 1px 1px #555;">
@@ -25,7 +25,7 @@
                         <td></td>
                     </tr>
                     <tr th:each="file: ${filelist}">
-                        <td><a href="javascript:;" th:text="${file.getFileName()}"></a></td>
+                        <td><a href="javascript:;" onclick="edit(this)" th:text="${file.getFileName()}" th:attr="data-path=${util.relative(file)}"></a></td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -33,5 +33,10 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function edit(obj) {
+            layer_show('文件打开器', '[[@{/admin/file/text/}]]' + $(obj).attr('data-path'));
+        }
+    </script>
 </body>
 </html>

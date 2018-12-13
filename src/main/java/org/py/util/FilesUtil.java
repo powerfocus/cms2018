@@ -3,6 +3,7 @@ package org.py.util;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -51,6 +52,14 @@ public class FilesUtil {
             map.put(FILES, filelist);
         }
         return map;
+    }
+
+    public List<String> readText(Path path) throws IOException {
+        return Files.readAllLines(path);
+    }
+
+    public void writeText(Path path, List<String> lines) throws IOException {
+        Files.write(path, lines, StandardCharsets.UTF_8);
     }
 
     public String getRootpath() {

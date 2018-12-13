@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -46,5 +48,10 @@ public class ExplorerController implements AdminBaseController {
         model.addAttribute("filelist", filelist);
         model.addAttribute("up", curr.isEmpty() ? "" : futil.relative(futil.up(currentDir)));
         return "/admin/explorer-index";
+    }
+    @PostMapping({"save_text"})
+    @ResponseBody
+    public String save_text(String content) {
+        return "获得保存文件内容：" + content;
     }
 }

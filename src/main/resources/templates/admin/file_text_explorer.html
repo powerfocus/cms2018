@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/fragments/layout::h('编辑文本文件')}"></head>
+<body>
+<script th:src="@{/lib/ueditor/1.4.3/ueditor.config.js}"></script>
+<script th:src="@{/lib/ueditor/1.4.3/ueditor.all.js}"></script>
+<script th:src="@{/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js}"></script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <legend style="color: #222; text-shadow: 0px 1px 1px #555;">编辑文本文件</legend>
+                <form class="form form-horizontal" th:action="@{/admin/explorer/save_text}">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">文件内容：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <script id="editor" name="editor" type="text/plain" th:text="${content}"></script>
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                            <input class="btn btn-primary radius" type="submit" value="提交" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        UE.getEditor('editor', {
+            initialFrameHeight: 500,
+            serverUrl: '/admin/ueditor'
+        });
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        UE.Editor.prototype.getActionUrl = function(action) {
+            if (action == 'listimage') {
+                return '/admin/listimage';
+            } else {
+                return this._bkGetActionUrl.call(this, action);
+            }
+        }
+    </script>
+</body>
+</html>
