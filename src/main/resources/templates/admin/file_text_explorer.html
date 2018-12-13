@@ -12,14 +12,20 @@
                 <legend style="color: #222; text-shadow: 0px 1px 1px #555;">编辑文本文件</legend>
                 <form class="form form-horizontal" th:action="@{/admin/file/save_text}" method="post">
                     <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                            <input class="btn btn-primary radius" type="submit" value="保存修改" />
+                        </div>
+                    </div>
+                    <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">文件内容：</label>
                         <div class="formControls col-xs-8 col-sm-9">
+                            <input type="hidden" id="path" name="path" th:value="${path}" />
                             <script id="editor" name="editor" type="text/plain" th:text="${content}"></script>
                         </div>
                     </div>
                     <div class="row cl">
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                            <input class="btn btn-primary radius" type="submit" value="提交" />
+                            <input class="btn btn-primary radius" type="submit" value="保存修改" />
                         </div>
                     </div>
                 </form>
