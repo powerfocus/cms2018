@@ -20,20 +20,49 @@ public class FilesUtil {
         root = Paths.get(resource.getFile().getAbsolutePath());
     }
 
+    /**
+     * 将路径转换为相对路径
+     * @param path 路径参数
+     * @return 相对路径
+     */
     public Path relative(Path path) {
         return root.relativize(path);
     }
 
+    /**
+     * 跳转到指定路径
+     * @param path 目标路径
+     * @return 目标路径
+     */
     public Path to(Path path) {
         return Paths.get(root.toString(), path.toString());
     }
 
+    /**
+     * 跳转到指定路径
+     * @param path 目标路径
+     * @return 目标路径
+     */
     public Path to(String path) {
         return Paths.get(root.toString(), path);
     }
 
+    /**
+     * 会到上级目录
+     * @param path
+     * @return 上级目录路径
+     */
     public Path up(Path path) {
         return path.getParent();
+    }
+
+    /**
+     * 获得指定路径中的文件扩展名
+     * @param path 路径
+     * @return 文件扩展名
+     */
+    public String extensionName(String path) {
+        return path.substring(path.lastIndexOf("."));
     }
 
     public Map<String, List<Path>> childlist(Path dir) throws IOException {

@@ -1,5 +1,6 @@
 package org.py;
 
+import org.py.explorer.Selector;
 import org.py.mapper.ColumntypeMapper;
 import org.py.util.CategoryUtil;
 import org.py.util.FilesUtil;
@@ -11,9 +12,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Component
-@PropertySource({"classpath:public/systemProperties.properties"})
+@PropertySource({"classpath:public/systemProperties.properties", "classpath:allowExtensionNames.properties"})
 public class SystemBeans {
     @Autowired
     private Environment env;
@@ -33,5 +35,15 @@ public class SystemBeans {
     public CategoryUtil categoryUtil(ColumntypeMapper mapper) {
         CategoryUtil categoryUtil = new CategoryUtil(mapper);
         return categoryUtil;
+    }
+
+    @Bean
+    public Selector selector() {
+        Selector selector = new Selector();
+        String allowtxt = env.getProperty("allow.text");
+        String allowimg = env.getProperty("allow.img");
+        selector.getAllowTxts().addAll(Arrays.asList(allowtxt.split(",")));
+        selector.getAllowImgs().addAll(Arrays.asList(allowimg.split(",")));
+        return selector;
     }
 }
