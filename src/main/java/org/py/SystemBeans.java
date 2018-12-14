@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @Component
-@PropertySource({"classpath:public/systemProperties.properties", "classpath:allowExtensionNames.properties"})
+@PropertySource({"classpath:public/systemProperties.properties", "classpath:public/allowExtensionNames.properties"})
 public class SystemBeans {
     @Autowired
     private Environment env;

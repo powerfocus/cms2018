@@ -9,8 +9,8 @@
                     <span th:text="|当前路径：${currentDir}|"></span>
                 </div>
                 <div>
-                    <a class="btn btn-secondary radius" th:href="|@{/admin/explorer/}${up}|" data-toggle="tooltip" data-placement="right" title="返回上层">
-                        <i class="Hui-iconfont">&#xe6d6;</i>
+                    <a class="btn btn-success-outline radius" th:href="|@{/admin/explorer/}${up}|" data-toggle="tooltip" data-placement="right" title="返回上层">
+                        <i class="Hui-iconfont">&#xe679;</i>
                     </a>
                 </div>
                 <table class="table table-bg table-border table-striped table-hover radius" style="color: #222; text-shadow: 0px 1px 1px #555;">
@@ -33,7 +33,7 @@
     </div>
     <script type="text/javascript">
         function edit(obj) {
-            layer_show('文件打开器', '[[@{/admin/file/}]]' + $(obj).attr('data-path'));
+            layer_show('文件打开器', '[[@{/admin/file/}]]' + $(obj).attr('data-path'), 900, 800);
         }
     </script>
 </body>
