@@ -15,15 +15,15 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/file")
-public class FileExplorerController {
+public class FileExplorerController implements AdminBaseController {
     @Autowired
     private FilesUtil futil;
     @Autowired
     private RestfulUtil restfulUtil;
     private final static String MAPPING = "/admin/file";
-    @GetMapping({"/text/**"})
+    @GetMapping({"/**"})
     public String text(Model model, HttpServletRequest request) throws IOException {
-        String path = restfulUtil.processURI(request.getRequestURI(), MAPPING + "/text");
+        String path = restfulUtil.processURI(request.getRequestURI(), MAPPING);
         Path target = Paths.get(futil.getRoot().toString(), path);
         List<String> lines = futil.readText(target);
         StringBuilder strbuilder = new StringBuilder();

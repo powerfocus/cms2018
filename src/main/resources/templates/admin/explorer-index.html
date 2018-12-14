@@ -16,7 +16,6 @@
                 <table class="table table-bg table-border table-striped table-hover radius" style="color: #222; text-shadow: 0px 1px 1px #555;">
                     <thead>
                         <th>文件名</th>
-                        <th>路径</th>
                         <th>操作</th>
                     </thead>
                     <tr th:each="dir : ${dirlist}">
@@ -27,7 +26,6 @@
                     <tr th:each="file: ${filelist}">
                         <td><a href="javascript:;" onclick="edit(this)" th:text="${file.getFileName()}" th:attr="data-path=${util.relative(file)}"></a></td>
                         <td></td>
-                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -35,7 +33,7 @@
     </div>
     <script type="text/javascript">
         function edit(obj) {
-            layer_show('文件打开器', '[[@{/admin/file/text/}]]' + $(obj).attr('data-path'));
+            layer_show('文件打开器', '[[@{/admin/file/}]]' + $(obj).attr('data-path'));
         }
     </script>
 </body>
