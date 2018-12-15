@@ -6,6 +6,8 @@ spring:
     password: 123
   thymeleaf:
     cache: false
+  redis:
+    password: 123
 management:
   endpoints:
     web:

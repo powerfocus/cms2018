@@ -9,7 +9,7 @@
                     <span th:text="|当前路径：${currentDir}|"></span>
                 </div>
                 <div>
-                    <a class="btn btn-success-outline radius" th:href="|@{/admin/explorer/}${up}|" data-toggle="tooltip" data-placement="right" title="返回上层">
+                    <a class="btn btn-success-outline size-MINI radius" th:href="|@{/admin/explorer/}${up}|" data-toggle="tooltip" data-placement="right" title="返回上层">
                         <i class="Hui-iconfont">&#xe679;</i>
                     </a>
                 </div>
@@ -19,12 +19,11 @@
                         <th>操作</th>
                     </thead>
                     <tr th:each="dir : ${dirlist}">
-                        <td><a th:href="@{|/admin/explorer/${util.relative(dir)}|}" th:text="|[${dir.getFileName()}]|"></a></td>
-                        <td></td>
+                        <td><i class="Hui-iconfont">&#xe639;</i><a th:href="@{|/admin/explorer/${util.relative(dir)}|}" th:text="${dir.getFileName()}"></a></td>
                         <td></td>
                     </tr>
                     <tr th:each="file: ${filelist}">
-                        <td><a href="javascript:;" onclick="edit(this)" th:text="${file.getFileName()}" th:attr="data-path=${util.relative(file)}"></a></td>
+                        <td><i class="Hui-iconfont">&#xe63e;</i><a href="javascript:;" onclick="edit(this)" th:text="${file.getFileName()}" th:attr="data-path=${util.relative(file)}"></a></td>
                         <td></td>
                     </tr>
                 </table>
