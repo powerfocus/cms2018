@@ -4,9 +4,8 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 public class FilesUtil {
@@ -81,6 +80,21 @@ public class FilesUtil {
             map.put(FILES, filelist);
         }
         return map;
+    }
+
+    /**
+     * 删除目录及其子目录
+     * @param target 目标目录
+     * @throws IOException
+     */
+    public void deltree(Path target) throws IOException {
+        Files.walkFileTree(target, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+        });
     }
 
     public List<String> readText(Path path) throws IOException {

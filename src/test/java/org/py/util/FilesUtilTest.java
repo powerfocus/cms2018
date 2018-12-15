@@ -7,9 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 import java.util.Map;
 
@@ -56,5 +55,21 @@ public class FilesUtilTest {
         Path path = Paths.get(root.toString(), "static", "h-ui", "css");
         System.out.println(path.toString());
         System.out.println(path.getParent());
+    }
+    @Test
+    public void walk() throws IOException {
+        Files.walkFileTree(util.to("static"), new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                System.out.println(dir.getFileName());
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                System.out.println(file.getFileName());
+                return FileVisitResult.CONTINUE;
+            }
+        });
     }
 }
