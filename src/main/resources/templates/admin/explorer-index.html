@@ -35,8 +35,6 @@
             layer_show('文件打开器', '[[@{/admin/file/}]]' + $(obj).attr('data-path'), 900, 800);
         }
         function del(obj) {
-            //layer_show('删除资源', '[[@{/admin/file/del/}]]' + $(obj).attr('data-path'));
-            layer.msg('你点击了删除按钮！');
             layer.confirm('真的要删除指定项吗？', function(index) {
                 $.get('[[@{/admin/file/del/}]]?path=' + $(obj).attr('data-path'), function(data, status) {
                     if(status == 'success') {

@@ -9,19 +9,42 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
+/**
+ * 文件系统操作工具类
+ */
 public class FilesUtil {
     private String rootpath;
     private Path root;
     public static final String DIRS = "dirlist";
     public static final String FILES = "filelist";
 
+    /**
+     * 判断目录访问知否在可反问的目录范围内，默认访问的目录路径是classpath:public
+     * @param path 目标路径
+     * @return 是否在可访问路径范围内
+     */
+    private boolean checkPath(Path path) {
+        return path.startsWith(root);
+    }
+
+    /**
+     * 判断目录是否在可访问范围内，接受一个字符串参数
+     * @param path 目标路径
+     * @return 是否在可访问路径范围内
+     */
+    private boolean checkPath(String path) {
+        return Paths.get(path).startsWith(root);
+    }
+
     public FilesUtil(String rootpath) throws IOException {
         ClassPathResource resource = new ClassPathResource(rootpath);
         root = Paths.get(resource.getFile().getAbsolutePath());
     }
+
     public String w(String uri) {
         return uri.replace(File.separator, "/");
     }
+
     public String l(String uri) {
         return uri.replace("/", File.separator);
     }
@@ -43,6 +66,10 @@ public class FilesUtil {
         return Paths.get(root.toString(), path.toString());
     }
 
+    public Path to(String... paths) {
+        return Paths.get(root.toString(), paths);
+    }
+
     /**
      * 跳转到指定路径
      * @param path 目标路径
@@ -50,6 +77,20 @@ public class FilesUtil {
      */
     public Path to(String path) {
         return Paths.get(root.toString(), path);
+    }
+
+    /**
+     * 判断路径表示的文件系统对象是否存在
+     * @param path
+     * @return 路径是否存在
+     */
+    public boolean exists(Path path) throws IllegalArgumentException {
+        if(checkPath(path)) throw new IllegalArgumentException("目录访问超过权限！");
+        return Files.exists(path);
+    }
+
+    public boolean exists(String path) {
+        return Files.exists(Paths.get(root.toString(), path));
     }
 
     /**

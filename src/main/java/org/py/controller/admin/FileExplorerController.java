@@ -53,7 +53,8 @@ public class FileExplorerController implements AdminBaseController {
     @GetMapping({"/del"})
     @ResponseBody
     public String del(String path) {
-        System.out.println("响应请求，删除 " + path);
+        Path to = futil.to(path);
+        System.out.println("响应请求，删除 " + to);
         return path;
     }
 }
