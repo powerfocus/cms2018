@@ -29,7 +29,7 @@ public class FileExplorerController implements AdminBaseController {
         String path = restfulUtil.processURI(request.getRequestURI(), MAPPING);
         String extensionName = futil.extensionName(path);
         if(selector.getAllowTxts().contains(extensionName)) {
-            Path target = futil.to(path);
+            Path target = futil.to(restfulUtil.localSeparator(path));
             List<String> lines = futil.readText(target);
             StringBuilder strbuilder = new StringBuilder();
             lines.forEach(it -> strbuilder.append(it));
@@ -49,5 +49,11 @@ public class FileExplorerController implements AdminBaseController {
         Path target = Paths.get(futil.getRoot().toString(), path);
         System.out.println("保存路径：" + target);
         return "optSuccess";
+    }
+    @GetMapping({"/del"})
+    @ResponseBody
+    public String del(String path) {
+        System.out.println("响应请求，删除 " + path);
+        return path;
     }
 }

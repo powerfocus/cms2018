@@ -19,12 +19,12 @@
                         <th>操作</th>
                     </thead>
                     <tr th:each="dir : ${dirlist}">
-                        <td><i class="Hui-iconfont">&#xe639;</i><a th:href="@{|/admin/explorer/${util.relative(dir)}|}" th:text="${dir.getFileName()}"></a></td>
-                        <td><a href="javascript:;" onclick="del(this)" th:attr="data-path=${util.relative(dir)}">删除</a></td>
+                        <td><i class="Hui-iconfont">&#xe639;</i><a th:href="@{|/admin/explorer/${util.relative(dir)}|}" th:text="${dir.getFileName()}" th:attr="data-path=${util.w(util.relative(dir).toString())}"></a></td>
+                        <td><a href="javascript:;" onclick="del(this)" th:attr="data-path=${util.w(util.relative(dir).toString())}">删除</a></td>
                     </tr>
                     <tr th:each="file: ${filelist}">
-                        <td><i class="Hui-iconfont">&#xe63e;</i><a href="javascript:;" onclick="edit(this)" th:text="${file.getFileName()}" th:attr="data-path=${util.relative(file)}"></a></td>
-                        <td><a href="javascript:;" onclick="del(this)" th:attr="data-path=${util.relative(file)}">删除</a></td>
+                        <td><i class="Hui-iconfont">&#xe63e;</i><a href="javascript:;" onclick="edit(this)" th:text="${file.getFileName()}" th:attr="data-path=${util.w(util.relative(file).toString())}"></a></td>
+                        <td><a href="javascript:;" onclick="del(this)" th:attr="data-path=${util.w(util.relative(file).toString())}">删除</a></td>
                     </tr>
                 </table>
             </div>
@@ -35,7 +35,17 @@
             layer_show('文件打开器', '[[@{/admin/file/}]]' + $(obj).attr('data-path'), 900, 800);
         }
         function del(obj) {
-            layer_show('删除资源', '[[@{/admin/del/}]]' + $(obj).attr('data-path'));
+            //layer_show('删除资源', '[[@{/admin/file/del/}]]' + $(obj).attr('data-path'));
+            layer.msg('你点击了删除按钮！');
+            layer.confirm('真的要删除指定项吗？', function(index) {
+                $.get('[[@{/admin/file/del/}]]?path=' + $(obj).attr('data-path'), function(data, status) {
+                    if(status == 'success') {
+                        layer.msg(data + ' 已删除！');
+                    } else {
+                        layer.msg('删除失败！' + status);
+                    }
+                });
+            });
         }
     </script>
 </body>

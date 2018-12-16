@@ -2,6 +2,7 @@ package org.py.util;
 
 import org.springframework.core.io.ClassPathResource;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -18,7 +19,12 @@ public class FilesUtil {
         ClassPathResource resource = new ClassPathResource(rootpath);
         root = Paths.get(resource.getFile().getAbsolutePath());
     }
-
+    public String w(String uri) {
+        return uri.replace(File.separator, "/");
+    }
+    public String l(String uri) {
+        return uri.replace("/", File.separator);
+    }
     /**
      * 将路径转换为相对路径
      * @param path 路径参数
@@ -87,11 +93,11 @@ public class FilesUtil {
      * @param target 目标目录
      * @throws IOException
      */
-    public void deltree(Path target) throws IOException {
-        Files.walkFileTree(target, new SimpleFileVisitor<Path>() {
+    public Path deltree(Path target) throws IOException {
+        return Files.walkFileTree(target, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                Files.delete(file);
+                //Files.delete(file);
                 return FileVisitResult.CONTINUE;
             }
         });

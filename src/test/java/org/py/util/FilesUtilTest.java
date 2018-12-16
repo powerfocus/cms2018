@@ -58,15 +58,15 @@ public class FilesUtilTest {
     }
     @Test
     public void walk() throws IOException {
-        Files.walkFileTree(util.to("static"), new SimpleFileVisitor<Path>() {
+        Files.walkFileTree(util.to("upload/1cce996d45.jpg"), new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                System.out.println(dir.getFileName());
                 return FileVisitResult.CONTINUE;
             }
 
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                System.out.println(Files.exists(file));
                 System.out.println(file.getFileName());
                 return FileVisitResult.CONTINUE;
             }
