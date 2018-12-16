@@ -35,10 +35,12 @@
             layer_show('文件打开器', '[[@{/admin/file/}]]' + $(obj).attr('data-path'), 900, 800);
         }
         function del(obj) {
-            layer.confirm('真的要删除指定项吗？', function(index) {
+            layer.confirm('真的要删除 ' + $(obj).attr('data-path') + ' 吗？', function(index) {
                 $.get('[[@{/admin/file/del/}]]?path=' + $(obj).attr('data-path'), function(data, status) {
                     if(status == 'success') {
-                        layer.msg(data + ' 已删除！');
+                        layer.msg(data + ' 已删除！', function() {
+                            window.location.reload();
+                        });
                     } else {
                         layer.msg('删除失败！' + status);
                     }

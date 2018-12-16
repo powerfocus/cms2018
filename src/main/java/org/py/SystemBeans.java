@@ -4,6 +4,7 @@ import org.py.explorer.Selector;
 import org.py.mapper.ColumntypeMapper;
 import org.py.util.CategoryUtil;
 import org.py.util.FilesUtil;
+import org.py.util.FileuploadUtil;
 import org.py.util.RestfulUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @Component
-@PropertySource({"classpath:public/systemProperties.properties", "classpath:public/allowExtensionNames.properties"})
+@PropertySource({"classpath:/public/systemProperties.properties", "classpath:/public/allowExtensionNames.properties", "classpath:/public/uploadConfiguration.properties"})
 public class SystemBeans {
     @Autowired
     private Environment env;
@@ -45,5 +46,11 @@ public class SystemBeans {
         selector.getAllowTxts().addAll(Arrays.asList(allowtxt.split(",")));
         selector.getAllowImgs().addAll(Arrays.asList(allowimg.split(",")));
         return selector;
+    }
+
+    @Bean
+    public FileuploadUtil fileuploadUtil(FilesUtil futil) {
+        FileuploadUtil fileuploadUtil = new FileuploadUtil(env.getProperty("uploaddir"), futil);
+        return fileuploadUtil;
     }
 }

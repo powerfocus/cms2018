@@ -21,36 +21,36 @@ import java.util.UUID;
 public class FileuploadUtil {
     private static final String UPLOADDIR = "uploaddir";
     private String savepath;
+    private FilesUtil futil;
     private void checkDir(FileSystemResource resource) {
         if(!resource.exists())
             resource.getFile().mkdirs();
     }
-    public FileuploadUtil(String property) {
+    public FileuploadUtil(String property, FilesUtil futil) {
         if(null == property || property.isEmpty())
             savepath = UPLOADDIR;
+        this.futil = futil;
         savepath = property;
     }
     public Map<String, String> save(MultipartFile file) throws IOException {
         Map<String, String> mp = new HashMap<>();
-        ClassPathResource root = new ClassPathResource("public");
-        File rootdir = new File(root.getFile().getAbsolutePath() + File.separator + savepath);
-        if(!rootdir.exists())
-            rootdir.mkdirs();
-        //String dirname = LocalDate.now().toString();
-        String dirname = "";
-        Path dir = Paths.get(rootdir.getAbsolutePath() + File.separator + dirname);
-        if(!Files.exists(dir))
-            Files.createDirectories(dir);
+        Path rootdir = Paths.get(futil.getRoot().toString(), savepath);
+        if(!Files.exists(rootdir))
+            Files.createDirectories(rootdir);
         String filename = UUID.randomUUID().toString().replace("-", "").substring(0, 10);
         String realname = file.getOriginalFilename();
         String extname = realname.substring(realname.lastIndexOf("."));
         String savefilename = filename + extname;
-        File savefile = new File(dir + File.separator + savefilename);
+        File savefile = new File(rootdir + File.separator + savefilename);
         if(null != file && !file.isEmpty())
             FileCopyUtils.copy(file.getBytes(), new FileOutputStream(savefile));
         log.info("upload file save to " + savefile.getAbsolutePath());
-        mp.put("dir", dirname);
+        mp.put("dir", "");
         mp.put("filename", savefilename);
         return mp;
+    }
+
+    public String getSavepath() {
+        return savepath;
     }
 }

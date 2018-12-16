@@ -21,10 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@PropertySource("classpath:/public/uploadConfiguration.properties")
 public class UeditorController {
     @Autowired
-    private Environment env;
+    private FileuploadUtil fileuploadUtil;
     @GetMapping({"/admin/ueditor"})
     public String ueditor(HttpServletRequest request) throws IOException {
         ClassPathResource resource = new ClassPathResource("public");
@@ -34,12 +33,10 @@ public class UeditorController {
     @PostMapping({"/admin/ueditor"})
     public Map<String, Object> ueditor(MultipartFile upfile) throws IOException {
         Map<String, Object> map = new HashMap<>();
-        String uploaddir = env.getProperty("uploaddir");
-        FileuploadUtil fileuploadUtil = new FileuploadUtil(uploaddir);
         if(null != upfile && !upfile.isEmpty()) {
             Map<String, String> mp = fileuploadUtil.save(upfile);
             map.put("state", "SUCCESS");
-            map.put("url", "/" + uploaddir + "/" + mp.get("dir") + "/" + mp.get("filename"));
+            map.put("url", "/" + fileuploadUtil.getSavepath() + mp.get("dir") + "/" + mp.get("filename"));
             map.put("title", mp.get("filename"));
             map.put("original", mp.get("filename"));
         }
@@ -47,7 +44,7 @@ public class UeditorController {
     }
     @GetMapping({"/admin/listimage"})
     public Map<String, Object> listimage() throws IOException {
-        String updir = env.getProperty("uploaddir");
+        String updir = fileuploadUtil.getSavepath();
         ClassPathResource resource = new ClassPathResource("public/" + updir);
         Map<String, Object> data = new HashMap<>();
         data.put("state", "SUCCESS");

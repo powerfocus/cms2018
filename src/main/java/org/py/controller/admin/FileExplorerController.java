@@ -52,9 +52,9 @@ public class FileExplorerController implements AdminBaseController {
     }
     @GetMapping({"/del"})
     @ResponseBody
-    public String del(String path) {
+    public String del(String path) throws IOException {
         Path to = futil.to(path);
-        System.out.println("响应请求，删除 " + to);
+        futil.deltree(to);
         return path;
     }
 }
