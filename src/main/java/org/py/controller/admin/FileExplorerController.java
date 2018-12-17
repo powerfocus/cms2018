@@ -3,6 +3,7 @@ package org.py.controller.admin;
 import org.py.explorer.Selector;
 import org.py.util.FilesUtil;
 import org.py.util.RestfulUtil;
+import org.py.util.Setup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ import java.util.List;
 @RequestMapping("/admin/file")
 public class FileExplorerController implements AdminBaseController {
     @Autowired
+    private Setup setup;
+    @Autowired
     private FilesUtil futil;
     @Autowired
     private RestfulUtil restfulUtil;
@@ -30,7 +33,7 @@ public class FileExplorerController implements AdminBaseController {
         String extensionName = futil.extensionName(path);
         if(selector.getAllowTxts().contains(extensionName)) {
             Path target = futil.to(restfulUtil.localSeparator(path));
-            List<String> lines = futil.readText(target);
+            List<String> lines = futil.readAllLines(target);
             StringBuilder strbuilder = new StringBuilder();
             lines.forEach(it -> strbuilder.append(it));
             model.addAttribute("content", strbuilder);
@@ -54,7 +57,7 @@ public class FileExplorerController implements AdminBaseController {
     @ResponseBody
     public String del(String path) throws IOException {
         Path to = futil.to(path);
-        futil.deltree(to);
+        futil.deltree(to, setup.readDefaultList());
         return path;
     }
 }

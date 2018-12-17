@@ -1,5 +1,6 @@
 package org.py.util;
 
+import lombok.extern.java.Log;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
@@ -8,22 +9,35 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * 文件系统操作工具类
  */
+@Log
 public class FilesUtil {
     private String rootpath;
+    private Path approot;
     private Path root;
+    private boolean issys;
+    public static final String FILESEPARATOR = File.separator;
+    public static final String URISEPARATOR = "/";
     public static final String DIRS = "dirlist";
     public static final String FILES = "filelist";
+
+    public FilesUtil(String rootpath) throws IOException {
+        ClassPathResource sysresource = new ClassPathResource(".");
+        ClassPathResource resource = new ClassPathResource(rootpath);
+        root = Paths.get(resource.getFile().getAbsolutePath());
+        approot = Paths.get(sysresource.getFile().getAbsolutePath());
+    }
 
     /**
      * 判断目录访问知否在可反问的目录范围内，默认访问的目录路径是classpath:public
      * @param path 目标路径
      * @return 是否在可访问路径范围内
      */
-    private boolean checkPath(Path path) {
+    public boolean checkPath(Path path) {
         return path.startsWith(root);
     }
 
@@ -32,21 +46,16 @@ public class FilesUtil {
      * @param path 目标路径
      * @return 是否在可访问路径范围内
      */
-    private boolean checkPath(String path) {
+    public boolean checkPath(String path) {
         return Paths.get(path).startsWith(root);
     }
 
-    public FilesUtil(String rootpath) throws IOException {
-        ClassPathResource resource = new ClassPathResource(rootpath);
-        root = Paths.get(resource.getFile().getAbsolutePath());
-    }
-
     public String w(String uri) {
-        return uri.replace(File.separator, "/");
+        return uri.replace(FILESEPARATOR, URISEPARATOR);
     }
 
     public String l(String uri) {
-        return uri.replace("/", File.separator);
+        return uri.replace(URISEPARATOR, FILESEPARATOR);
     }
     /**
      * 将路径转换为相对路径
@@ -85,7 +94,6 @@ public class FilesUtil {
      * @return 路径是否存在
      */
     public boolean exists(Path path) throws IllegalArgumentException {
-        if(checkPath(path)) throw new IllegalArgumentException("目录访问超过权限！");
         return Files.exists(path);
     }
 
@@ -100,6 +108,14 @@ public class FilesUtil {
      */
     public Path up(Path path) {
         return path.getParent();
+    }
+
+    public String fileName(String path) {
+        return w(Paths.get(path).getFileName().toString());
+    }
+
+    public String fileName(Path path) {
+        return w(path.getFileName().toString());
     }
 
     /**
@@ -130,6 +146,16 @@ public class FilesUtil {
     }
 
     /**
+     * 遍历指定路径下的文件
+     * @param path 遍历目标目录
+     * @return 子元素流
+     * @throws IOException
+     */
+    public Stream<Path> list(Path path) throws IOException {
+        return Files.list(path);
+    }
+
+    /**
      * 删除目录及其子目录
      * @param target 目标目录
      * @throws IOException
@@ -150,12 +176,58 @@ public class FilesUtil {
         });
     }
 
-    public List<String> readText(Path path) throws IOException {
+    public Path deltree(Path target, List<String> exclude) throws IOException {
+        List<Path> paths = new ArrayList<>();
+        exclude.forEach(it -> paths.add(to(it)));
+        return Files.walkFileTree(target, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                if(exclude.contains(fileName(dir))) {
+                    log.info("系统目录不允许删除！" + dir);
+                    return FileVisitResult.SKIP_SUBTREE;
+                }
+                Files.delete(dir);
+                log.info("删除操作处理目录 " + dir);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                paths.forEach(it -> {
+                    if(file.startsWith(it))
+                        issys = true;
+                });
+                if(issys) {
+                    log.info("系统文件不允许删除！" + file);
+                } else {
+                    Files.delete(file);
+                    log.info("删除文件 " + file);
+                }
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    public List<String> readAllLines(Path path) throws IOException {
         return Files.readAllLines(path);
     }
 
-    public void writeText(Path path, List<String> lines) throws IOException {
-        Files.write(path, lines, StandardCharsets.UTF_8);
+    public byte[] readAllBytes(Path path) throws IOException {
+        return Files.readAllBytes(path);
+    }
+
+    public String read(Path path, String separator) throws IOException {
+        StringBuilder strbuil = new StringBuilder();
+        readAllLines(path).forEach(it -> strbuil.append(it + separator));
+        return strbuil.toString();
+    }
+
+    public Path write(Path path, Iterable<String> lines) throws IOException {
+        return Files.write(path, lines, StandardCharsets.UTF_8);
+    }
+
+    public Path write(Path path, byte[] data) throws IOException {
+        return Files.write(path, data);
     }
 
     public String getRootpath() {
@@ -166,4 +238,7 @@ public class FilesUtil {
         return root;
     }
 
+    public Path getApproot() {
+        return approot;
+    }
 }

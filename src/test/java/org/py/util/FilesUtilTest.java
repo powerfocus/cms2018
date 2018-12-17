@@ -4,11 +4,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,9 @@ import java.util.Map;
 public class FilesUtilTest {
     @Autowired
     private FilesUtil util;
+    @Autowired
+    private Setup setup;
+    private boolean issys = false;
     @Test
     public void test() throws IOException {
         Map<String, List<Path>> childlist = util.childlist(util.getRoot());
@@ -71,5 +76,39 @@ public class FilesUtilTest {
                 return FileVisitResult.CONTINUE;
             }
         });
+    }
+    @Test
+    public void deltree() throws IOException {
+        List<String> defaultList = setup.readDefaultList();
+        List<Path> paths = new ArrayList<>();
+        defaultList.forEach(it -> paths.add(util.to(it)));
+        Files.walkFileTree(util.to("admin", "config.json"), new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                if(defaultList.contains(util.fileName(dir))) {
+                    System.out.println("受保护的系统文件不允许删除！" + dir);
+                    return FileVisitResult.SKIP_SUBTREE;
+                }
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                paths.forEach(it -> {
+                    if(file.startsWith(it))
+                        issys = true;
+                });
+                if(issys)
+                    System.out.println("受保护的系统文件不允许删除！" + file);
+                else
+                    System.out.println("删除文件：" + file);
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+    @Test
+    public void deltree2() throws IOException {
+        List<String> defaultList = setup.readDefaultList();
+        util.deltree(util.to("admin", "config.json"), defaultList);
     }
 }
