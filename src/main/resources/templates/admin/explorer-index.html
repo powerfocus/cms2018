@@ -23,7 +23,15 @@
                         <td><a href="javascript:;" onclick="del(this)" th:attr="data-path=${util.w(util.relative(dir).toString())}">删除</a></td>
                     </tr>
                     <tr th:each="file: ${filelist}">
-                        <td><i class="Hui-iconfont">&#xe63e;</i><a href="javascript:;" onclick="edit(this)" th:text="${file.getFileName()}" th:attr="data-path=${util.w(util.relative(file).toString())}"></a></td>
+                        <td>
+                            <div th:if="${allowimgs.contains(futil.extensionName(file.getFileName().toString()))}">
+                                <img class="img-responsive thumbnail" width="100" th:src="|/${util.w(util.relative(file).toString())}|" alt="图片预览" />
+                            </div>
+                            <div>
+                                <i class="Hui-iconfont">&#xe63e;</i>
+                                <a href="javascript:;" onclick="edit(this)" th:text="${file.getFileName()}" th:attr="data-path=${util.w(util.relative(file).toString())}"></a>
+                            </div>
+                        </td>
                         <td><a href="javascript:;" onclick="del(this)" th:attr="data-path=${util.w(util.relative(file).toString())}">删除</a></td>
                     </tr>
                 </table>

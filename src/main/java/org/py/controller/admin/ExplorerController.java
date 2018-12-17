@@ -1,5 +1,6 @@
 package org.py.controller.admin;
 
+import org.py.explorer.Selector;
 import org.py.util.FilesUtil;
 import org.py.util.RestfulUtil;
 import org.py.util.TemplateUtil;
@@ -24,6 +25,8 @@ public class ExplorerController implements AdminBaseController {
     private FilesUtil futil;
     @Autowired
     private RestfulUtil restfulUtil;
+    @Autowired
+    private Selector selector;
     private static final String MAPPING = "/admin/explorer";
     private final String TEMPLATECSS = "explcss";
     private final String TEMPLATESTYLE = "explstyle";
@@ -45,6 +48,8 @@ public class ExplorerController implements AdminBaseController {
         model.addAttribute("dirlist", dirlist);
         model.addAttribute("filelist", filelist);
         model.addAttribute("up", curr.isEmpty() ? "" : futil.relative(futil.up(currentDir)));
+        model.addAttribute("allowimgs", selector.getAllowImgs());
+        model.addAttribute("futil", futil);
         return "/admin/explorer-index";
     }
 }

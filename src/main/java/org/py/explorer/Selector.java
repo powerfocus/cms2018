@@ -11,6 +11,10 @@ public class Selector {
         allowImgs = new ArrayList<>();
     }
 
+    public boolean imgContains(String item) {
+        return allowImgs.contains(item.trim());
+    }
+
     public List<String> getAllowTxts() {
         return allowTxts;
     }
