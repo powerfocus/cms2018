@@ -176,6 +176,13 @@ public class FilesUtil {
         });
     }
 
+    /**
+     * 删除时验证是否为系统文件，如果是系统文件则不允许删除
+     * @param target 删除目标
+     * @param exclude 受保护系统文件列表
+     * @return
+     * @throws IOException
+     */
     public Path deltree(Path target, List<String> exclude) throws IOException {
         List<Path> paths = new ArrayList<>();
         exclude.forEach(it -> paths.add(to(it)));
