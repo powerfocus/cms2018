@@ -188,13 +188,18 @@ public class FilesUtil {
         exclude.forEach(it -> paths.add(to(it)));
         return Files.walkFileTree(target, new SimpleFileVisitor<Path>() {
             @Override
-            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                if(exclude.contains(fileName(dir))) {
-                    log.info("系统目录不允许删除！" + dir);
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                paths.forEach(it -> {
+                    if(dir.startsWith(it))
+                        issys = true;
+                });
+                if(issys) {
+                    log.info("系统目录不允许删除！" + relative(dir));
                     return FileVisitResult.SKIP_SUBTREE;
                 }
                 Files.delete(dir);
-                log.info("删除操作处理目录 " + dir);
+                issys = false;
+                log.info("删除操作处理目录 " + relative(dir));
                 return FileVisitResult.CONTINUE;
             }
 
@@ -205,11 +210,12 @@ public class FilesUtil {
                         issys = true;
                 });
                 if(issys) {
-                    log.info("系统文件不允许删除！" + file);
+                    log.info("系统文件不允许删除！" + relative(file));
                 } else {
                     Files.delete(file);
-                    log.info("删除文件 " + file);
+                    log.info("删除文件 " + relative(file));
                 }
+                issys = false;
                 return FileVisitResult.CONTINUE;
             }
         });
