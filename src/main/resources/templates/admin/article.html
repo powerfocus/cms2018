@@ -30,12 +30,12 @@
                         <td colspan="6">
                             <div class="btn-group text-r">
                                 <span class="btn btn-default radius">
-                                    <b th:text="${page.getPageNum()}"></b> / <b th:text="${page.getPages()}"></b>页
+                                    共<b th:text="${page.getPageNum()}"></b> / <b th:text="${page.getPages()}"></b>页
                                 </span>
-                                <span class="btn btn-primary radius">首页</span>
-                                <span class="btn btn-default radius">上一页</span>
-                                <span class="btn btn-default radius">下一页</span>
-                                <span class="btn btn-default radius">尾页</span>
+                                <span id="firstPage" class="btn btn-primary radius">首页</span>
+                                <span id="prevPage" class="btn btn-default radius">上一页</span>
+                                <span id="nextPage" class="btn btn-default radius">下一页</span>
+                                <span id="lastPage" class="btn btn-default radius">尾页</span>
                             </div>
                         </td>
                     </tr>
@@ -43,5 +43,25 @@
             </table>
         </div>
     </div>
+    <script type="text/javascript">
+        $(function() {
+            var pageNum = '[[${page.getPageNum()}]]';
+            var pages = '[[${page.getPages()}]]';
+            $('#firstPage').click(function () {
+                $(location).attr('href', '[[@{/admin/article/1}]]');
+            });
+            $('#prevPage').click(function () {
+                if(pageNum > 1)
+                    $(location).attr('href', '[[@{/admin/article/}]]' + (pageNum - 1));
+            });
+            $('#nextPage').click(function () {
+                if(pageNum < pages)
+                    $(location).attr('href', '[[@{/admin/article/}]]' + (pageNum + 1));
+            });
+            $('#lastPage').click(function () {
+                $(location).attr('href', '[[@{/admin/article/}]]' + pages);
+            });
+        });
+    </script>
 </body>
 </html>
