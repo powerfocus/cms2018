@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,6 +69,7 @@ public class ArticleController implements AdminBaseController {
         if(errors.hasErrors()) {
             return "admin/article-add";
         }
+        article.setPublishdatetime(LocalDateTime.now());
         int re = artMapper.insert(article);
         if(re > 0)
             return "redirect:/admin/article/add";

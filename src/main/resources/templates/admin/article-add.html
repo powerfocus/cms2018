@@ -38,7 +38,7 @@
                 <div class="formControls col-xs-2 col-sm-2">
                     <span class="select-box">
                         <select th:field="*{columntype}" name="columntype" id="columntype" class="select" size="1">
-                            <th:block th:each="it : ${list}"><option th:each="m : ${it}" th:value="${m.value.id}" th:text="|${m.key}${m.value.typename}|"></option></th:block>
+                            <th:block th:each="it : ${list}"><option th:each="m : ${it}" th:value="${m.value.typename}" th:text="|${m.key}${m.value.typename}|"></option></th:block>
                         </select>
                     </span>
                     <div class="Huialert Huialert-danger" th:if="${#fields.hasErrors('columntype')}" th:errors="*{columntype}"><i class="Hui-iconfont">&#xe6a6;</i></div>
