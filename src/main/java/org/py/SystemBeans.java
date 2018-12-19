@@ -19,6 +19,11 @@ public class SystemBeans {
     private Environment env;
 
     @Bean
+    public EnvironmentUtil environmentUtil(Environment env) {
+        return new EnvironmentUtil(env);
+    }
+
+    @Bean
     public FilesUtil filesUtil() throws IOException {
         FilesUtil filesUtil = new FilesUtil(env.getProperty("rootpath"));
         return filesUtil;

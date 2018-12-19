@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/fragments/layout::layout('文章资讯', ~{::body})}">
+<body>
+    <legend>文章资讯首页</legend>
+    <div class="container">
+        <div class="row cl">
+            <table class="table table-border table-bg table-striped radius">
+                <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>作者</th>
+                        <th>所属栏目</th>
+                        <th>是否审核</th>
+                        <th>发布日期</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="art: ${list}">
+                        <td th:text="${art.title}"></td>
+                        <td th:text="${art.author}"></td>
+                        <td th:text="${art.columntype}"></td>
+                        <td th:text="${art.isvarify}"></td>
+                        <td th:text="${art.publishdatetime}"></td>
+                        <td><a class="btn btn-link" href="javascript:;">编辑</a> / <a class="btn btn-link" href="javascript:;">删除</a></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div class="btn-group text-r">
+                                <span class="btn btn-default radius">
+                                    <b th:text="${page.getPageNum()}"></b> / <b th:text="${page.getPages()}"></b>页
+                                </span>
+                                <span class="btn btn-primary radius">首页</span>
+                                <span class="btn btn-default radius">上一页</span>
+                                <span class="btn btn-default radius">下一页</span>
+                                <span class="btn btn-default radius">尾页</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
