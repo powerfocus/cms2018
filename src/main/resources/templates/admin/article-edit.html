@@ -2,9 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/admin/fragments/layout::h('编辑文章')}"></head>
 <body>
-<script th:src="@{/lib/ueditor/1.4.3/ueditor.config.js}"></script>
-<script th:src="@{/lib/ueditor/1.4.3/ueditor.all.js}"></script>
-<script th:src="@{/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js}"></script>
+<th:block th:replace="~{/admin/fragments/ueditor_js_fragment}" />
 <div class="container">
     <div class="row">
         <legend>编辑栏目</legend>
@@ -62,7 +60,6 @@
             </form>
         </div>
     </div>
-    <th:block th:insert="~{/admin/fragments/layout::f}" />
     <script type="text/javascript">
         $(function() {
             $('.skin-minimal input').iCheck({
