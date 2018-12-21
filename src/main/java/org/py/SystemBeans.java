@@ -5,14 +5,14 @@ import org.py.mapper.ColumntypeMapper;
 import org.py.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Arrays;
 
-@Component
+@Configuration
 @PropertySource({"classpath:/public/systemProperties.properties", "classpath:/public/allowExtensionNames.properties", "classpath:/public/uploadConfiguration.properties"})
 public class SystemBeans {
     @Autowired

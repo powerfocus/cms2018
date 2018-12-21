@@ -1,6 +1,5 @@
 package org.py.controller.admin;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.java.Log;
@@ -21,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Log
 @Controller
@@ -74,5 +70,36 @@ public class ArticleController implements AdminBaseController {
         if(re > 0)
             return "redirect:/admin/article/add";
         return "optFailure";
+    }
+    @GetMapping({"edit/{id}"})
+    public String edit(@PathVariable Integer id, Article article, Model model) {
+        Article art = artMapper.selectByPrimaryKey(id);
+        if(null != art) {
+            article.setId(art.getId());
+            article.setTitle(art.getTitle());
+            article.setPublishdatetime(art.getPublishdatetime());
+            article.setIsvarify(art.getIsvarify());
+            article.setAuthor(art.getAuthor());
+            article.setColumntype(art.getColumntype());
+            article.setShorttitle(art.getShorttitle());
+            article.setSource(art.getSource());
+            article.setContent(art.getContent());
+        }
+        model.addAttribute("article", article);
+        return "admin/article-edit";
+    }
+    @PostMapping({"edit"})
+    public String edit(@Valid Article article, Errors errors) {
+        if(errors.hasErrors())
+            return "edit/" + article.getId();
+        return "optSuccess";
+    }
+    @GetMapping({"del/{id}"})
+    public Map<String, Object> del(@PathVariable Integer id) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("state", "success");
+        data.put("id", id);
+        data.put("message", "delete article success.");
+        return data;
     }
 }

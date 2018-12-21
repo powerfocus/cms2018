@@ -22,7 +22,7 @@
                         <td th:text="${art.columntype}"></td>
                         <td th:text="${art.isvarify}"></td>
                         <td th:text="${art.publishdatetime}"></td>
-                        <td><a class="btn btn-link" href="javascript:;">编辑</a> / <a class="btn btn-link" href="javascript:;">删除</a></td>
+                        <td><a class="btn btn-link" href="javascript:;" th:onclick="edit([[${art.id}]])">编辑</a> / <a class="btn btn-link" href="javascript:;" th:onclick="del([[${art.id}]])">删除</a></td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -44,6 +44,23 @@
         </div>
     </div>
     <script type="text/javascript">
+        function edit(id) {
+            layer_show('编辑文章', 'edit/' + id);
+        }
+        function del(id) {
+            layer.confirm('确认要删除id: ' + id + ' 的文章吗？', function(index) {
+                $.get('del/' + id, function(data) {
+                    if(data.state == 'success')
+                        layer.msg('ID: ' + data.id + ' 文章已删除!',{icon:1,time:1000},function() {
+                            location.reload();
+                        });
+                    else
+                        layer.msg('ID: ' + data.id + ' 文章删除失败！',{icon:1, time:1000}, function() {
+                            location.reload();
+                        })
+                });
+            });
+        }
         $(function() {
             var pageNum = '[[${page.getPageNum()}]]';
             var pages = '[[${page.getPages()}]]';

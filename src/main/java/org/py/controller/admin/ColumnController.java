@@ -53,7 +53,7 @@ public class ColumnController implements AdminBaseController {
         return "optSuccess";
     }
     @GetMapping({"edit/{id}"})
-    public String edit(@PathVariable(required = false) Integer id, Columntype columntype, Model model) {
+    public String edit(@PathVariable Integer id, Columntype columntype, Model model) {
         model.addAttribute(TEMPLATECSS, CSS);
         model.addAttribute(TEMPLATESTYLE, STYLE);
         Columntype col = mapper.selectByPrimaryKey(id);
