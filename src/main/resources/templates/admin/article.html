@@ -22,7 +22,9 @@
                         <td th:text="${art.columntype}"></td>
                         <td th:text="${art.isvarify}"></td>
                         <td th:text="${art.publishdatetime}"></td>
-                        <td><a class="btn btn-link" href="javascript:;" th:onclick="edit([[${art.id}]])">编辑</a> / <a class="btn btn-link" href="javascript:;" th:onclick="del([[${art.id}]])">删除</a></td>
+                        <td>
+                            <a class="btn btn-link" href="javascript:;" th:onclick="edit([[${art.id}]])">编辑</a> / <a class="btn btn-link" href="javascript:;" th:onclick="del([[${art.id}]])">删除</a>
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -45,7 +47,7 @@
     </div>
     <script type="text/javascript">
         function edit(id) {
-            layer_show('编辑文章', 'edit/' + id);
+            layer_show('编辑文章', '[[@{/admin/article/}]]edit/' + id);
         }
         function del(id) {
             layer.confirm('确认要删除id: ' + id + ' 的文章吗？', function(index) {
