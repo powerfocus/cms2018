@@ -20,7 +20,7 @@
                         <td th:text="${art.title}"></td>
                         <td th:text="${art.author}"></td>
                         <td th:text="${art.columntype}"></td>
-                        <td th:text="${art.isvarify}"></td>
+                        <td th:text="${art.isvarify}?'是':'否'"></td>
                         <td th:text="${art.publishdatetime}"></td>
                         <td>
                             <a class="btn btn-link" href="javascript:;" th:onclick="edit([[${art.id}]])">编辑</a> / <a class="btn btn-link" href="javascript:;" th:onclick="del([[${art.id}]])">删除</a>

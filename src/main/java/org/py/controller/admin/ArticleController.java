@@ -85,7 +85,6 @@ public class ArticleController implements AdminBaseController {
             article.setSource(art.getSource());
             article.setContent(art.getContent());
         }
-        model.addAttribute("article", article);
         return "admin/article-edit";
     }
     @PostMapping({"edit"})

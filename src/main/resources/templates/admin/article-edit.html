@@ -2,6 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/admin/fragments/layout::h('编辑文章')}"></head>
 <body>
+<th:block th:replace="~{/admin/fragments/layout::f}" />
 <th:block th:replace="~{/admin/fragments/ueditor_js_fragment}" />
 <div class="container">
     <div class="row">
@@ -9,10 +10,14 @@
         <div class="col-md-10">
             <form class="form form-horizontal" th:action="@{/admin/article/edit}" th:object="${article}" method="post">
                 <div class="row cl">
+                    <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                        <input class="btn btn-primary radius" type="submit" value="保存修改">
+                    </div>
+                </div>
+                <div class="row cl">
                     <label class="form-label col-xs-4 col-sm-3">文章ID：</label>
                     <div class="formControls col-xs-1 col-sm-1">
                         <input th:field="*{id}" id="id" name="id" type="text" class="input-text" readonly="readonly" />
-                        <input type="hidden" th:field="*{id}" />
                     </div>
                 </div>
                 <div class="row cl">
@@ -37,6 +42,19 @@
                     <label class="form-label col-xs-4 col-sm-3">来源：</label>
                     <div class="formControls col-xs-8 col-sm-9">
                         <input type="text" th:field="*{source}" id="source" name="source" class="input-text" placeholder="来源" />
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">是否审核：</label>
+                    <div class="formControls skin-minimal col-xs-8 col-sm-9">
+                        <div class="radio-box">
+                            <input name="isvarify" type="radio" th:field="*{isvarify}" value="true" />
+                            <label>是</label>
+                        </div>
+                        <div class="radio-box">
+                            <input name="isvarify" type="radio" th:field="*{isvarify}" value="false" />
+                            <label>否</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row cl">
