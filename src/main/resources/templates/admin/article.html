@@ -51,7 +51,7 @@
         }
         function del(id) {
             layer.confirm('确认要删除id: ' + id + ' 的文章吗？', function(index) {
-                $.get('del/' + id, function(data) {
+                $.get('[[@{/admin/article/}]]del/' + id, function(data) {
                     if(data.state == 'success')
                         layer.msg('ID: ' + data.id + ' 文章已删除!',{icon:1,time:1000},function() {
                             location.reload();
