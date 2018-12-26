@@ -49,7 +49,6 @@ public class ColumnController implements AdminBaseController {
         if(errors.hasErrors())
             return "admin/column-add";
         int re = mapper.insert(columntype);
-        //return "redirect:/admin/column/add";
         return "optSuccess";
     }
     @GetMapping({"edit/{id}"})

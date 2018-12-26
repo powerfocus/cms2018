@@ -45,6 +45,12 @@
                     </div>
                 </div>
                 <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">所属栏目：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" th:field="*{columntype}" id="columntype" name="columntype" class="input-text" placeholder="所属栏目" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="row cl">
                     <label class="form-label col-xs-4 col-sm-3">是否审核：</label>
                     <div class="formControls skin-minimal col-xs-8 col-sm-9">
                         <div class="radio-box">
@@ -101,12 +107,9 @@
         ue.ready(function () {
             ue.setContent($('#reContent').val());
         });
-        /*window.onunload = function() {
+        /*$(window).unload(function() {
             window.parent.location.reload();
-        };*/
-        $(window).unload(function() {
-            window.parent.location.reload();
-        });
+        });*/
     </script>
 </div>
 </body>

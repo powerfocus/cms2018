@@ -44,7 +44,6 @@ public class ArticleController implements AdminBaseController {
         model.addAttribute("navpath", NAV);
         model.addAttribute("list", list);
         model.addAttribute("page", page);
-
         return "admin/article";
     }
     @GetMapping({"add"})
@@ -59,9 +58,8 @@ public class ArticleController implements AdminBaseController {
     }
     @PostMapping({"add"})
     public String add(@Valid Article article, Errors errors) {
-        if(errors.hasErrors()) {
+        if(errors.hasErrors())
             return "admin/article-add";
-        }
         article.setPublishdatetime(LocalDateTime.now());
         int re = artMapper.insert(article);
         if(re > 0)
@@ -87,16 +85,26 @@ public class ArticleController implements AdminBaseController {
     @PostMapping({"edit"})
     public String edit(@Valid Article article, Errors errors) {
         if(errors.hasErrors())
-            return "edit/" + article.getId();
-        return "optSuccess";
+            return "optFailure";
+        int re = artMapper.updateByPrimaryKey(article);
+        if(re > 0)
+            return "optSuccess";
+        else
+            return "optFailure";
     }
     @GetMapping({"del/{id}"})
     @ResponseBody
     public Map<String, Object> del(@PathVariable Integer id) {
         Map<String, Object> data = new HashMap<>();
+        String msg = "";
+        int re = artMapper.deleteByPrimaryKey(id);
+        if(re > 0)
+            msg = "delete article success.";
+        else
+            msg = "delete article id: " + id + " failure.";
         data.put("state", "success");
         data.put("id", id);
-        data.put("message", "delete article success.");
+        data.put("message", msg);
         return data;
     }
 }
