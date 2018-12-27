@@ -15,5 +15,6 @@ public class Source implements Serializable {
     private static final long serialVersionUID = -7422907553732987261L;
     @Id
     private Integer id;
-    private String desc;
+    private String name;
+    private String info;
 }
