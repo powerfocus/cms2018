@@ -1,6 +1,6 @@
 package org.py.controller.admin;
 
-public interface AdminBaseController {
+public interface BaseController {
     String CSS = "selected";
     String STYLE = "display:block";
 }

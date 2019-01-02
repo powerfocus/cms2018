@@ -22,9 +22,11 @@ import java.util.*;
 @Log
 @Controller
 @RequestMapping("/admin/article")
-public class ArticleController implements AdminBaseController {
-    private final String TEMPLATECSS = "artcss";
-    private final String TEMPLATESTYLE = "artstyle";
+public class ArticleController extends AdminController {
+    {
+        templatecss = "artcss";
+        templatestyle = "artstyle";
+    }
     private static final String NAV = TemplateUtil.topNav(Arrays.asList("内容管理"));
     @Autowired
     private EnvironmentUtil envUtil;
@@ -39,8 +41,8 @@ public class ArticleController implements AdminBaseController {
         List<Article> list = artMapper.selectAll();
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<Article> page = new PageInfo(list);
-        model.addAttribute(TEMPLATECSS, CSS);
-        model.addAttribute(TEMPLATESTYLE, STYLE);
+        model.addAttribute(templatecss, CSS);
+        model.addAttribute(templatestyle, STYLE);
         model.addAttribute("navpath", NAV);
         model.addAttribute("list", list);
         model.addAttribute("page", page);
@@ -50,8 +52,8 @@ public class ArticleController implements AdminBaseController {
     public String add(Article article, Model model) {
         List<Map<String, Columntype>> list = new ArrayList<>();
         categoryUtil.treeList(0, 0, list);
-        model.addAttribute(TEMPLATECSS, CSS);
-        model.addAttribute(TEMPLATESTYLE, STYLE);
+        model.addAttribute(templatecss, CSS);
+        model.addAttribute(templatestyle, STYLE);
         model.addAttribute("navpath", NAV);
         model.addAttribute("list", list);
         return "admin/article-add";

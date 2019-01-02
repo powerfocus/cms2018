@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/file")
-public class FileExplorerController implements AdminBaseController {
+public class FileExplorerController extends AdminController {
     @Autowired
     private Setup setup;
     @Autowired

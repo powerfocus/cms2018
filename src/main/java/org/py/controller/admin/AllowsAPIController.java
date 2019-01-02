@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin/allows")
-public class AllowsAPIController implements AdminBaseController {
+public class AllowsAPIController implements BaseController {
     @Autowired
     private Selector selector;
     @GetMapping({"txts"})

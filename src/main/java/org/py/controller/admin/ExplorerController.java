@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/explorer")
-public class ExplorerController implements AdminBaseController {
+public class ExplorerController extends AdminController {
     @Autowired
     private FilesUtil futil;
     @Autowired

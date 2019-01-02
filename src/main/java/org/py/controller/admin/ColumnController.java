@@ -17,9 +17,11 @@ import java.util.*;
 @Log
 @Controller
 @RequestMapping("/admin/column")
-public class ColumnController implements AdminBaseController {
-    private final String TEMPLATECSS = "colcss";
-    private final String TEMPLATESTYLE = "colstyle";
+public class ColumnController extends AdminController {
+    {
+        templatecss = "colcss";
+        templatestyle = "colstyle";
+    }
     private static final String NAV = TemplateUtil.topNav(Arrays.asList("栏目管理"));
     @Autowired
     private CategoryUtil categoryUtil;
@@ -29,8 +31,8 @@ public class ColumnController implements AdminBaseController {
     public String index(Model model) {
         List<Map<String, Columntype>> list = new ArrayList<>();
         categoryUtil.treeList(0, 0, list);
-        model.addAttribute(TEMPLATECSS, CSS);
-        model.addAttribute(TEMPLATESTYLE, STYLE);
+        model.addAttribute(templatecss, CSS);
+        model.addAttribute(templatestyle, STYLE);
         model.addAttribute("navpath", NAV);
         model.addAttribute("list", list);
         return "admin/column";
@@ -39,8 +41,8 @@ public class ColumnController implements AdminBaseController {
     public String add(Columntype columntype, Model model) {
         List<Map<String, Columntype>> list = new ArrayList<>();
         categoryUtil.treeList(0, 0, list);
-        model.addAttribute(TEMPLATECSS, CSS);
-        model.addAttribute(TEMPLATESTYLE, STYLE);
+        model.addAttribute(templatecss, CSS);
+        model.addAttribute(templatestyle, STYLE);
         model.addAttribute("list", list);
         return "admin/column-add";
     }
@@ -53,8 +55,8 @@ public class ColumnController implements AdminBaseController {
     }
     @GetMapping({"edit/{id}"})
     public String edit(@PathVariable Integer id, Columntype columntype, Model model) {
-        model.addAttribute(TEMPLATECSS, CSS);
-        model.addAttribute(TEMPLATESTYLE, STYLE);
+        model.addAttribute(templatecss, CSS);
+        model.addAttribute(templatestyle, STYLE);
         Columntype col = mapper.selectByPrimaryKey(id);
         if(null != col) {
             columntype.setId(col.getId());

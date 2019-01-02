@@ -109,8 +109,8 @@
             </dd>
         </dl>
         <dl id="menu-member">
-            <dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
+            <dt th:class="${membermgcss}"><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd th:style="${membermgstyle}">
                 <ul>
                     <li><a href="member-list.html" title="会员列表">会员列表</a></li>
                     <li><a href="member-del.html" title="删除的会员">删除的会员</a></li>
@@ -123,8 +123,8 @@
             </dd>
         </dl>
         <dl id="menu-admin">
-            <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
+            <dt th:class="${adminmgcss}"><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd th:style="${adminmgstyle}">
                 <ul>
                     <li><a href="admin-role.html" title="角色管理">角色管理</a></li>
                     <li><a href="admin-permission.html" title="权限管理">权限管理</a></li>
@@ -133,10 +133,10 @@
             </dd>
         </dl>
         <dl id="menu-system">
-            <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
+            <dt th:class="${syscss}"><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd th:style="${sysstyle}">
                 <ul>
-                    <li><a href="system-base.html" title="系统设置">系统设置</a></li>
+                    <li><a th:href="@{/admin/system}" title="系统设置">系统设置</a></li>
                     <li><a href="system-category.html" title="数据库管理">数据库管理</a></li>
                     <li><a href="system-log.html" title="系统日志">系统日志</a></li>
                 </ul>
