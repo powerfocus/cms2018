@@ -1,4 +1,4 @@
-package org.py.controller.admin;
+package org.py.controller;
 
 public interface BaseController {
     String CSS = "selected";
