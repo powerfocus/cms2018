@@ -8,8 +8,8 @@
                 <div class="Huialert Huialert-info" style="color: #222; text-shadow: 0px 1px 1px #555; margin-bottom: 5px;">
                     <span th:text="|当前路径：${currentDir}|"></span>
                 </div>
-                <div>
-                    <a class="btn btn-success-outline size-MINI radius" th:href="|@{/admin/explorer/}${up}|" data-toggle="tooltip" data-placement="right" title="返回上层">
+                <div class="btn-group l ml-5">
+                    <a class="btn btn-secondary" th:href="|@{/admin/explorer/}${up}|" data-toggle="tooltip" data-placement="right" title="返回上层">
                         <i class="Hui-iconfont">&#xe679;</i>
                     </a>
                 </div>

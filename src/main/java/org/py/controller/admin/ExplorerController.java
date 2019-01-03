@@ -50,6 +50,6 @@ public class ExplorerController extends AdminController {
         model.addAttribute("up", curr.isEmpty() ? "" : futil.relative(futil.up(currentDir)));
         model.addAttribute("allowimgs", selector.getAllowImgs());
         model.addAttribute("futil", futil);
-        return "/admin/explorer-index";
+        return "/admin/explorer";
     }
 }
