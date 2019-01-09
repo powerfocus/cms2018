@@ -8,8 +8,7 @@ spring:
     cache: false
   redis:
     password: 123
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
