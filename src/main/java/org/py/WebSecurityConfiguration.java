@@ -1,6 +1,7 @@
 package org.py;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,15 +24,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
-                .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                .logout();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new PasswordEncoder() {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new PasswordEncoder() {
             @Override
             public String encode(CharSequence rawPassword) {
                 return DigestUtils.md5DigestAsHex(rawPassword.toString().getBytes());
@@ -41,6 +44,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
                 return encodedPassword.equals(encode(rawPassword));
             }
-        });
+        };
     }
 }

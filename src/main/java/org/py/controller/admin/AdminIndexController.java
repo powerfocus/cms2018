@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminIndexController extends AdminController {
     @GetMapping({"", "index"})
     public String index() {
+        authority();
         return "admin/index";
     }
 }
