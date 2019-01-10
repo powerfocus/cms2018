@@ -19,7 +19,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserDetailsServiceImpl userDetailsService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable()
+                .cors().disable()
+                .headers().frameOptions().sameOrigin().httpStrictTransportSecurity().disable()
+                .and()
+                .authorizeRequests()
                 .antMatchers("/admin/**")
                 .authenticated()
                 .and()

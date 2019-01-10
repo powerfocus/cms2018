@@ -21,7 +21,7 @@ public class FileuploadUtilTest {
     private FilesUtil filesUtil;
     @Test
     public void list() throws IOException {
-        filesUtil.list(filesUtil.getApproot()).forEach(System.out::println);
+        filesUtil.list(filesUtil.getRoot()).forEach(System.out::println);
     }
     @Test
     public void test() throws IOException {

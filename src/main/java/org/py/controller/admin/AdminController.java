@@ -10,8 +10,9 @@ public class AdminController implements BaseController {
     protected String templatestyle;
     protected String nav;
     protected User user;
-    protected void authority() {
+    protected User authority() {
         SecurityContext context = SecurityContextHolder.getContext();
         user = (User)context.getAuthentication().getPrincipal();
+        return user;
     }
 }

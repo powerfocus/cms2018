@@ -16,8 +16,6 @@ import java.util.stream.Stream;
  */
 @Log
 public class FilesUtil {
-    private String rootpath;
-    private Path approot;
     private Path root;
     private boolean issys;
     public static final String FILESEPARATOR = File.separator;
@@ -26,10 +24,8 @@ public class FilesUtil {
     public static final String FILES = "filelist";
 
     public FilesUtil(String rootpath) throws IOException {
-        ClassPathResource sysresource = new ClassPathResource(".");
         ClassPathResource resource = new ClassPathResource(rootpath);
         root = Paths.get(resource.getFile().getAbsolutePath());
-        approot = Paths.get(sysresource.getFile().getAbsolutePath());
     }
 
     /**
@@ -243,15 +239,8 @@ public class FilesUtil {
         return Files.write(path, data);
     }
 
-    public String getRootpath() {
-        return rootpath;
-    }
-
     public Path getRoot() {
         return root;
     }
 
-    public Path getApproot() {
-        return approot;
-    }
 }

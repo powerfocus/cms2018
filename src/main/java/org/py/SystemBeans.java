@@ -8,11 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.DigestUtils;
 
 import java.io.IOException;
-import java.io.StringBufferInputStream;
 import java.util.Arrays;
 
 @Configuration
@@ -62,5 +59,10 @@ public class SystemBeans {
     public FileuploadUtil fileuploadUtil(FilesUtil futil) {
         FileuploadUtil fileuploadUtil = new FileuploadUtil(env.getProperty("uploaddir"), futil);
         return fileuploadUtil;
+    }
+
+    @Bean
+    public UrlSave urlSave(EnvironmentUtil env) {
+        return new UrlSave(env);
     }
 }
