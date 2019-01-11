@@ -28,8 +28,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .and()
-                .logout();
+                .logout()
+                .logoutSuccessUrl("/");
     }
 
     @Override
