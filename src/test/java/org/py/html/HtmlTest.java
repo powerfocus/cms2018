@@ -42,9 +42,4 @@ public class HtmlTest {
             }
         });
     }
-    @Test
-    public void t() {
-        char c = (char)0;
-        System.out.println(c);
-    }
 }
