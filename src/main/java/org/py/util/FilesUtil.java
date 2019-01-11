@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -35,6 +36,38 @@ public class FilesUtil {
      */
     public boolean checkPath(Path path) {
         return path.startsWith(root);
+    }
+
+    public Path createDirectorys(Path path) throws IOException {
+        if(checkPath(path))
+            return Files.createDirectories(path);
+        return path;
+    }
+
+    public Path createIfNotExists(Path path) throws IOException {
+        if(checkPath(path))
+            if(!Files.isDirectory(path))
+                return Files.createDirectories(path);
+        return path;
+    }
+
+    /**
+     * 生成目录名
+     * @return
+     * 目录名
+     */
+    public String generateDirectoryName() {
+        return LocalDateTime.now().toString();
+    }
+
+    /**
+     * 随机生成一个名字，用于文件名
+     * @return
+     * 随机文件名
+     */
+    public String randomName() {
+        return UUID.randomUUID().toString().replace("-", "")
+                .substring(0, 10);
     }
 
     /**
@@ -120,7 +153,7 @@ public class FilesUtil {
      * @return 文件扩展名
      */
     public String extensionName(String path) {
-        return path.substring(path.lastIndexOf("."));
+        return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".")) : "";
     }
 
     public Map<String, List<Path>> childlist(Path dir) throws IOException {

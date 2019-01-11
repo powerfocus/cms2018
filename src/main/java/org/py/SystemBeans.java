@@ -1,6 +1,7 @@
 package org.py;
 
 import org.py.explorer.Selector;
+import org.py.html.Html;
 import org.py.mapper.ColumntypeMapper;
 import org.py.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class SystemBeans {
     }
 
     @Bean
-    public UrlSave urlSave(EnvironmentUtil env) {
+    public UrlSave urlSave(EnvironmentUtil env) throws IOException {
         return new UrlSave(env);
     }
 }
