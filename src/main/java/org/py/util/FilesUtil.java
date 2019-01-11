@@ -1,6 +1,7 @@
 package org.py.util;
 
 import lombok.extern.java.Log;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
@@ -23,6 +24,11 @@ public class FilesUtil {
     public static final String URISEPARATOR = "/";
     public static final String DIRS = "dirlist";
     public static final String FILES = "filelist";
+
+    public FilesUtil() throws IOException {
+        ClassPathResource resource = new ClassPathResource("");
+        root = Paths.get(resource.getFile().getAbsolutePath());
+    }
 
     public FilesUtil(String rootpath) throws IOException {
         ClassPathResource resource = new ClassPathResource(rootpath);
@@ -86,6 +92,14 @@ public class FilesUtil {
     public String l(String uri) {
         return uri.replace(URISEPARATOR, FILESEPARATOR);
     }
+
+    public String separatorsToSystem(String path) {
+        return FilenameUtils.separatorsToSystem(path);
+    }
+
+    public String getBaseName(String filename) {
+        return FilenameUtils.getBaseName(filename);
+    }
     /**
      * 将路径转换为相对路径
      * @param path 路径参数
@@ -147,6 +161,10 @@ public class FilesUtil {
         return w(path.getFileName().toString());
     }
 
+    public String getName(String filename) {
+        return FilenameUtils.getName(filename);
+    }
+
     /**
      * 获得指定路径中的文件扩展名
      * @param path 路径
@@ -154,6 +172,10 @@ public class FilesUtil {
      */
     public String extensionName(String path) {
         return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".")) : "";
+    }
+
+    public String getExtensionName(String filename) {
+        return FilenameUtils.getExtension(filename);
     }
 
     public Map<String, List<Path>> childlist(Path dir) throws IOException {
