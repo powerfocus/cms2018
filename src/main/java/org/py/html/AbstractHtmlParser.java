@@ -19,7 +19,12 @@ public abstract class AbstractHtmlParser extends AbstractHtmlBase {
         return url.startsWith("http://") || url.startsWith("https://") ? url : "http://" + url;
     }
 
-    public void parse() {
+    /**
+     * 获取html文档中的资源url
+     * @param enabled
+     * 是否在资源url前面加入http://，为true是加入，否则不加
+     */
+    public void parse(boolean enabled) {
         if(null == document)
             throw new IllegalArgumentException("必须初始化document对象！");
         srclist.clear();
@@ -28,7 +33,10 @@ public abstract class AbstractHtmlParser extends AbstractHtmlBase {
             String group = matcher.group(1);
             group = processURL(group);
             if(group.matches(REGEXURL))
-                srclist.add(group);
+                if(enabled)
+                    srclist.add(convertUrlStr(group));
+                else
+                    srclist.add(group);
         }
     }
 }

@@ -63,7 +63,7 @@ public class UrlSaveTest {
     public void getRemoteFile() {
         String url = "http://d.ifengimg.com/q75/p0.ifengimg.com/pmop/2018/0903/3EE5E7FFB2A92C5B3BE1B7FA513711FCA158F65C_size38_w545_h694.jpeg";
         String savepath = urlSave.getRemoteFile(
-                "https://www.baidu.com/img/baidu_85beaf5496f291521eb75ba38eacbd87.svg",
+                "http://www.baidu.com/img/bd_logo1.png",
                 "C:\\Users\\Administrator\\Desktop\\files");
         System.out.println("文件保存 " + savepath);
     }

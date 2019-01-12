@@ -1,13 +1,10 @@
 package org.py.html;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jsoup.Jsoup;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,8 +14,11 @@ public class HtmlTest {
     public void test() throws IOException {
         Html html = new Html();
         html.setDocument(Html.get("http://www.baidu.com"));
-        html.parse();
-        html.getSrclist().forEach(System.out::println);
+        html.parse(true);
+        html.getSrclist().forEach(it -> {
+            //System.out.println(html.convertUrlStr(it));
+            System.out.println(it);
+        });
     }
     @Test
     public void test2() throws IOException {
@@ -29,7 +29,7 @@ public class HtmlTest {
     @Test
     public void test3() throws IOException {
         Html html = new Html(Html.get("www.baidu.com"));
-        html.parse();
+        html.parse(true);
         Path baidu = Paths.get("c:/users/administrator/desktop", "baidu");
         if(!Files.isDirectory(baidu))
             Files.createDirectory(baidu);
