@@ -29,7 +29,7 @@ public class UrlSave {
     /**
      * 允许抓去的文件扩展名
      */
-    private String[] allocType = {"jpg", "jpeg", "bmp", "gif", "png", "js", "css"};
+    private String[] allocType = {"jpg", "jpeg", "bmp", "gif", "png", "js", "css", "svg", "txt", "xml", "yml", "pdf", "doc", "docx", "xls", "ppt", "pptx"};
 
     private Path checkSavePath() throws IOException {
         Path path = filesUtil.to(filepath);
