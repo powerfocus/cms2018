@@ -79,6 +79,12 @@ public class UrlSave {
         return extensionName;
     }
 
+    /**
+     * 获得html内容
+     * @param url
+     * @return
+     * @throws IOException
+     */
     public String html(String url) throws IOException {
         return Jsoup.connect(url).get().html();
     }
