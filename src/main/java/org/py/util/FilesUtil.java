@@ -97,9 +97,6 @@ public class FilesUtil {
         return FilenameUtils.separatorsToSystem(path);
     }
 
-    public String getBaseName(String filename) {
-        return FilenameUtils.getBaseName(filename);
-    }
     /**
      * 将路径转换为相对路径
      * @param path 路径参数
@@ -161,10 +158,23 @@ public class FilesUtil {
         return w(path.getFileName().toString());
     }
 
+    /**
+     * 从路径中获得文件名，包含扩展名
+     * @param filename
+     * @return 文件名
+     */
     public String getName(String filename) {
         return FilenameUtils.getName(filename);
     }
 
+    /**
+     * 从路径中获得文件名，不包含扩展名
+     * @param filename
+     * @return
+     */
+    public String getBaseName(String filename) {
+        return FilenameUtils.getBaseName(filename);
+    }
     /**
      * 获得指定路径中的文件扩展名
      * @param path 路径
@@ -174,6 +184,11 @@ public class FilesUtil {
         return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".")) : "";
     }
 
+    /**
+     * 获得扩展名，不包含点
+     * @param filename
+     * @return
+     */
     public String getExtensionName(String filename) {
         return FilenameUtils.getExtension(filename);
     }

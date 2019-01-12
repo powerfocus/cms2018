@@ -13,7 +13,6 @@ public abstract class AbstractHtmlParser extends AbstractHtmlBase {
         return url;
     }
 
-
     public AbstractHtmlParser() { }
 
     public String convertUrlStr(String url) {
@@ -21,9 +20,9 @@ public abstract class AbstractHtmlParser extends AbstractHtmlBase {
     }
 
     public void parse() {
-        srclist.clear();
         if(null == document)
             throw new IllegalArgumentException("必须初始化document对象！");
+        srclist.clear();
         Matcher matcher = Pattern.compile(regexSrc).matcher(document.html());
         while(matcher.find()) {
             String group = matcher.group(1);
