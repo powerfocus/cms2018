@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 public class RegexTest {
     @Test
@@ -42,5 +41,14 @@ public class RegexTest {
         else
             System.out.println("字符串未匹配");
         //FileUtils.copyURLToFile(url, new File("C:\\Users\\Administrator\\Desktop\\files" + File.separator + "2.jpg"));
+    }
+    @Test
+    public void test2() {
+        String target = "u=1202533505,1003824237&fm=173&app=25&f=JPEG?w=640&h=610&s=10197093464376FCCCAC00CF0300B022";
+        String regex = "([^<>\\\"\\\']+)\\.\\w{3}$";
+        if(target.matches(regex))
+            System.out.println("匹配");
+        else
+            System.out.println("不匹配");
     }
 }

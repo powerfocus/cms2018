@@ -10,7 +10,6 @@ public class EnvironmentUtil {
     public EnvironmentUtil(Environment env) {
         this.env = env;
     }
-
     public Environment getEnv() {
         return env;
     }

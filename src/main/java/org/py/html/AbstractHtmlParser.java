@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class AbstractHtmlParser extends AbstractHtmlBase {
-    protected String regexSrc = "src=[\'\"]([^\'\"<%{]+)[\'\"]";
-    protected String regexURL = "(((ht|f)tps):\\/\\/)?[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:\\/~\\+#]*[\\w\\-\\@?^=%&\\/~\\+#])?";
+    protected final String REGEXSRC = "src=[\'\"]([^\'\"<%{]+)[\'\"]";
+    protected final String REGEXURL = "(((ht|f)tps):\\/\\/)?[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:\\/~\\+#]*[\\w\\-\\@?^=%&\\/~\\+#])?";
 
     protected String processURL(String url) {
         url = url.startsWith("//") ? url.replace("//", "") : url;
@@ -23,11 +23,11 @@ public abstract class AbstractHtmlParser extends AbstractHtmlBase {
         if(null == document)
             throw new IllegalArgumentException("必须初始化document对象！");
         srclist.clear();
-        Matcher matcher = Pattern.compile(regexSrc).matcher(document.html());
+        Matcher matcher = Pattern.compile(REGEXSRC).matcher(document.html());
         while(matcher.find()) {
             String group = matcher.group(1);
             group = processURL(group);
-            if(group.matches(regexURL))
+            if(group.matches(REGEXURL))
                 srclist.add(group);
         }
     }

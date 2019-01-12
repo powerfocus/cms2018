@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.py.util.EnvironmentUtil;
 import org.py.util.FilesUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,12 +16,16 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Stream;
 
 public class UrlSave {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UrlSave.class);
     private EnvironmentUtil env;
     private String root;
     private String filepath;
     private FilesUtil filesUtil;
+    private final String REGEXFILENAME = "([^<>\\\"\\\']+)\\.\\w{3}$";
+
     /**
      * 允许抓去的文件扩展名
      */
@@ -51,15 +57,25 @@ public class UrlSave {
             if(filename.toLowerCase().contains(it)) {
                 matching.set(true);
                 re.set(it);
-                break;
             }
         return re.get();
+    }
+
+    /**
+     * 检查文件类型是否在允许范围内
+     * @param type
+     * @return 是否允许文件类型
+     */
+    public boolean inAllocType(String type) {
+        return Stream.of(allocType).anyMatch(v -> v.equals(type));
     }
 
     public String extensionFilename(String filename) {
         String extensionName = FilenameUtils.getExtension(filename);
         if(extensionName.isEmpty())
             extensionName = filetype(filename);
+        if(!extensionName.isEmpty() && extensionName.contains("?"))
+            extensionName = extensionName.substring(0, extensionName.lastIndexOf("?"));
         return extensionName;
     }
 
@@ -80,15 +96,23 @@ public class UrlSave {
         File save = null;
         try {
             URL httpurl = new URL(url);
-            String fn = "1.jpg";
-            save = new File(savepath + File.separator + fn);
-            FileUtils.copyURLToFile(httpurl, save);
+            String fn;
+            String extensionName = extensionFilename(url);
+            if(extensionName.isEmpty())
+                throw new IllegalArgumentException("无法获得文件类型，操作失败！");
+            if(inAllocType(extensionName)) {
+                fn = filesUtil.randomName() + "." + extensionName;
+                save = new File(savepath + File.separator + fn);
+                FileUtils.copyURLToFile(httpurl, save);
+            } else {
+                LOGGER.info("不支持的类型，保存操作未完成！" + extensionName);
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return save.getAbsolutePath();
+        return null != save ? save.getAbsolutePath() : "";
     }
 
     public String getRoot() {
