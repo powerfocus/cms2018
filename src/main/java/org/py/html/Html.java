@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Html extends AbstractHtmlParser {
     public static Document get(String url) throws IOException {
-        if(!url.startsWith("https://") && !url.startsWith("http://"))
+        if(!url.startsWith(HTTP) && !url.startsWith(HTTPS))
             url = HTTP.concat(url);
         Document document = Jsoup.connect(url).get();
         return document;
