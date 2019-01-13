@@ -36,6 +36,10 @@ public class UrlSave {
         return filesUtil.createIfNotExists(path);
     }
 
+    private String domainStr(String domain) {
+        return domain.replace(Html.HTTP, "").replace(Html.HTTPS, "");
+    }
+
     public UrlSave(EnvironmentUtil env) throws IOException {
         this.env = env;
         root = env.getEnv().getProperty("rootpath");
@@ -98,10 +102,29 @@ public class UrlSave {
         return savepath;
     }
 
+    public boolean isAbstractUrl(String url, String domain) {
+        domain = domainStr(domain);
+        if(url.startsWith(domain))
+            return true;
+        return false;
+    }
+
+    /**
+     * 抓去远程网络文件
+     * @param domain
+     *  远程网络地址
+     * @param url
+     *  目标网络文件url
+     * @param savepath
+     *  本地保存路径
+     * @return
+     *  本地保存路径
+     */
     public String getRemoteFile(String domain, String url, String savepath) {
         File save = null;
         try {
-            domain = domain.endsWith("/") ? domain : domain + "/";
+            domain = domain.startsWith(Html.HTTP) || domain.startsWith(Html.HTTPS) ? domain : Html.HTTP + domain;
+            domain = domain.startsWith(domainStr(domain)) && domain.endsWith("/") ? domain : domain + "/";
             URL httpurl = new URL(domain + url);
             String fn;
             String extensionName = extensionFilename(url);
@@ -111,6 +134,7 @@ public class UrlSave {
                 fn = filesUtil.randomName() + "." + extensionName;
                 save = new File(savepath + File.separator + fn);
                 FileUtils.copyURLToFile(httpurl, save);
+                LOGGER.info("保存远程文件到 " + save.getAbsolutePath());
             } else {
                 LOGGER.info("不支持的类型，保存操作未完成！" + extensionName);
             }

@@ -1,6 +1,5 @@
 package org.py.html;
 
-import org.apache.commons.io.FilenameUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
@@ -20,8 +19,8 @@ public class HtmlTest {
     public void test1() throws IOException {
         Html html = new Html();
         html.setDocument(Html.get("http://www.baidu.com"));
-        html.parse(true);
-        html.getSrclist().forEach(System.out::println);
+        html.parse();
+        //html.getSrclist().forEach(System.out::println);
     }
     @Test
     public void test2() throws IOException {
@@ -32,11 +31,11 @@ public class HtmlTest {
     @Test
     public void test3() throws IOException {
         Html html = new Html(Html.get("www.baidu.com"));
-        html.parse(true);
+        html.parse();
         Path baidu = Paths.get("c:/users/administrator/desktop", "baidu");
         if(!Files.isDirectory(baidu))
             Files.createDirectory(baidu);
-        html.getSrclist().forEach(src -> {
+        /*html.getSrclist().forEach(src -> {
             System.out.println(src);
             String fn = FilenameUtils.getName(src);
             try {
@@ -45,6 +44,6 @@ public class HtmlTest {
             } catch (IOException e) {
 
             }
-        });
+        });*/
     }
 }

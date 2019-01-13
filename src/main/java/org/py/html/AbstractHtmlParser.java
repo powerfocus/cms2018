@@ -1,5 +1,7 @@
 package org.py.html;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,23 +22,19 @@ public abstract class AbstractHtmlParser extends AbstractHtmlBase {
     }
 
     /**
-     * 获取html文档中的资源url
-     * @param enabled
-     * 是否在资源url前面加入http://，为true是加入，否则不加
+     * 获得html文档中的资源url
      */
-    public void parse(boolean enabled) {
+    public List<String> parse() {
         if(null == document)
             throw new IllegalArgumentException("必须初始化document对象！");
-        srclist.clear();
+        List<String> srclist = new ArrayList<>();
         Matcher matcher = Pattern.compile(REGEXSRC).matcher(document.html());
         while(matcher.find()) {
             String group = matcher.group(1);
             group = processURL(group);
             if(group.matches(REGEXURL))
-                if(enabled)
-                    srclist.add(convertUrlStr(group));
-                else
-                    srclist.add(group);
+                srclist.add(group);
         }
+        return srclist;
     }
 }

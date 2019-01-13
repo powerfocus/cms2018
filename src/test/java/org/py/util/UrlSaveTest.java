@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.py.html.Html;
 import org.py.html.UrlSave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -67,5 +69,28 @@ public class UrlSaveTest {
                 "static/h-ui/css/H-ui.min.css",
                 "C:\\Users\\Administrator\\Desktop\\files");
         System.out.println("文件保存 " + savepath);
+    }
+    @Test
+    public void isAbstractUrl() {
+        String url = "static/h-ui/css/H-ui.min.css";
+        if(urlSave.isAbstractUrl(url, ""))
+            System.out.println("是绝对路径");
+        else
+            System.out.println("不是绝对路径");
+    }
+    @Test
+    public void savewebpage() throws IOException {
+        Html html = new Html(Html.get("https://www.baidu.com/"));
+        List<String> srclist = html.parse();
+        Document document = html.getDocument();
+        String savepath = "C:\\Users\\Administrator\\Desktop\\files";
+        String domain = document.baseUri();
+        System.out.println("抓取目标 " + domain);
+        srclist.forEach(src -> {
+            if(urlSave.isAbstractUrl(src, domain))
+                urlSave.getRemoteFile("", src, savepath);
+            else
+                urlSave.getRemoteFile(domain, src, savepath);
+        });
     }
 }
