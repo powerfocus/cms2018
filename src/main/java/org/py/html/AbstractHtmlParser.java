@@ -1,5 +1,7 @@
 package org.py.html;
 
+import org.springframework.util.Assert;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -25,8 +27,7 @@ public abstract class AbstractHtmlParser extends AbstractHtmlBase {
      * 获得html文档中的资源url
      */
     public List<String> parse() {
-        if(null == document)
-            throw new IllegalArgumentException("必须初始化document对象！");
+        Assert.notNull(document, "必须初始化document对象！");
         List<String> srclist = new ArrayList<>();
         Matcher matcher = Pattern.compile(REGEXSRC).matcher(document.html());
         while(matcher.find()) {

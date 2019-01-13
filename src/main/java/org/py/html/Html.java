@@ -7,9 +7,6 @@ import org.springframework.util.Assert;
 import java.io.IOException;
 
 public class Html extends AbstractHtmlParser {
-    public static final String WWW = "www.";
-    public static final String HTTP = "http://";
-    public static final String HTTPS = "https://";
     public static Document get(String url) throws IOException {
         if(!url.startsWith("https://") && !url.startsWith("http://"))
             url = HTTP.concat(url);
