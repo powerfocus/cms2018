@@ -29,7 +29,7 @@ public class UrlSave {
     /**
      * 允许抓去的文件扩展名
      */
-    private String[] allocType = {"jpg", "jpeg", "bmp", "gif", "png", "js", "css", "svg", "txt", "xml", "yml", "pdf", "doc", "docx", "xls", "ppt", "pptx"};
+    private String[] allocType = {"jpg", "jpeg", "bmp", "gif", "png", "ico", "js", "css", "svg", "txt", "xml", "yml", "pdf", "doc", "docx", "xls", "ppt", "pptx"};
 
     private Path checkSavePath() throws IOException {
         Path path = filesUtil.to(filepath);
@@ -98,10 +98,11 @@ public class UrlSave {
         return savepath;
     }
 
-    public String getRemoteFile(String url, String savepath) {
+    public String getRemoteFile(String domain, String url, String savepath) {
         File save = null;
         try {
-            URL httpurl = new URL(url);
+            domain = domain.endsWith("/") ? domain : domain + "/";
+            URL httpurl = new URL(domain + url);
             String fn;
             String extensionName = extensionFilename(url);
             if(extensionName.isEmpty())

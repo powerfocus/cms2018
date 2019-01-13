@@ -2,6 +2,7 @@ package org.py.html;
 
 import org.apache.commons.io.FilenameUtils;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -12,13 +13,15 @@ import java.nio.file.Paths;
 public class HtmlTest {
     @Test
     public void test() throws IOException {
+        Document document = Html.get("baidu.com");
+        System.out.println(document.baseUri());
+    }
+    @Test
+    public void test1() throws IOException {
         Html html = new Html();
         html.setDocument(Html.get("http://www.baidu.com"));
         html.parse(true);
-        html.getSrclist().forEach(it -> {
-            //System.out.println(html.convertUrlStr(it));
-            System.out.println(it);
-        });
+        html.getSrclist().forEach(System.out::println);
     }
     @Test
     public void test2() throws IOException {

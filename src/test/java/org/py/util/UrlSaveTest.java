@@ -32,7 +32,7 @@ public class UrlSaveTest {
     @Test
     public void saveRemote() {
         String savepath = "C:\\Users\\Administrator\\Desktop\\files";
-        String re = urlSave.getRemoteFile("https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1202533505,1003824237&fm=173&app=25&f=JPEG?w=640&h=610&s=10197093464376FCCCAC00CF0300B022", savepath);
+        String re = urlSave.getRemoteFile("", "https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1202533505,1003824237&fm=173&app=25&f=JPEG?w=640&h=610&s=10197093464376FCCCAC00CF0300B022", savepath);
         System.out.println("文件以保存到：" + re);
     }
     @Test
@@ -63,7 +63,8 @@ public class UrlSaveTest {
     public void getRemoteFile() {
         String url = "http://d.ifengimg.com/q75/p0.ifengimg.com/pmop/2018/0903/3EE5E7FFB2A92C5B3BE1B7FA513711FCA158F65C_size38_w545_h694.jpeg";
         String savepath = urlSave.getRemoteFile(
-                "http://www.baidu.com/img/bd_logo1.png",
+                "http://demo.h-ui.net/H-ui.admin.page",
+                "static/h-ui/css/H-ui.min.css",
                 "C:\\Users\\Administrator\\Desktop\\files");
         System.out.println("文件保存 " + savepath);
     }
