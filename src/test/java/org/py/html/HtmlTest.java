@@ -2,12 +2,14 @@ package org.py.html;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Collectors;
 
 public class HtmlTest {
     @Test
@@ -45,5 +47,10 @@ public class HtmlTest {
 
             }
         });*/
+    }
+    @Test
+    public void test4() throws IOException {
+        Html html = new Html(Html.get("https://www.163.com"));
+        html.parseSrc().forEach(System.out::println);
     }
 }
