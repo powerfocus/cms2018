@@ -9,7 +9,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.py.html.Html;
 import org.py.html.UrlSave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,8 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.file.Path;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -32,11 +29,11 @@ public class UrlSaveTest {
     @Test
     public void save() throws IOException {
         String savepath = "C:\\Users\\Administrator\\Desktop\\files";
-        urlSave.getRemoteFile("http://www.sohu.com", savepath);
+        urlSave.getRemoteFile("https://www.163.com", savepath);
     }
     @Test
     public void save2() throws IOException {
-        HttpConnection connect = (HttpConnection) Jsoup.connect("http://www.sohu.com");
+        HttpConnection connect = (HttpConnection) Jsoup.connect("http://www.163.com");
         connect.timeout(1000);
         Document document = connect.get();
         Elements srcs = document.getElementsByAttribute("src");

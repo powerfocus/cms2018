@@ -17,6 +17,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -127,10 +129,10 @@ public class UrlSave {
     public void getRemoteFile(String httpUrl, String savepath) throws IOException {
         httpUrl = httpUrl.startsWith("http://") || httpUrl.startsWith("https://") ? httpUrl : "http://".concat(httpUrl);
         HttpConnection connect = (HttpConnection) Jsoup.connect(httpUrl);
-        connect.timeout(1000);
         Document document = connect.get();
         Elements srcs = document.getElementsByAttribute("src");
         String domain = document.baseUri().endsWith("/") ? document.baseUri() : document.baseUri().concat("/");
+        ExecutorService pool = Executors.newCachedThreadPool();
         srcs.stream().map(src -> src.attr("src")).collect(Collectors.toList())
                 .forEach(src -> {
                     try {
@@ -139,6 +141,7 @@ public class UrlSave {
                         if (!src.startsWith("http://") && !src.startsWith("https://"))
                             src = domain.concat(src);
                         String ext = FilenameUtils.getExtension(src);
+                        ext = ext.lastIndexOf("?") == -1 ? ext : ext.substring(ext.lastIndexOf("?") + 1);
                         String fn = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
                         if (!ext.isEmpty()) {
                             URL url = new URL(src);
@@ -146,14 +149,20 @@ public class UrlSave {
                             if (httpURLConnection.getResponseMessage().equals("OK")) {
                                 File file = new File(savepath + File.separator + fn + "." + ext);
                                 if(inAllocType(ext)) {
-                                    FileUtils.copyURLToFile(url, file);
+                                    pool.execute(() -> {
+                                        try {
+                                            FileUtils.copyURLToFile(url, file);
+                                        } catch (IOException e) {
+                                            LOGGER.error(e.getMessage());
+                                        }
+                                    });
                                     LOGGER.info("save remote files " + file.getAbsolutePath());
                                     String content = FileUtils.readFileToString(file);
                                     if (content.contains("404") || content.contains("405") || content.contains("502")) {
                                         FileUtils.deleteQuietly(file);
                                     }
                                 } else {
-                                    LOGGER.info("nonsupport file type.");
+                                    LOGGER.info("nonsupport file type." + ext);
                                 }
                             }
                         }
@@ -161,6 +170,7 @@ public class UrlSave {
                         LOGGER.error(e.getMessage());
                     }
                 });
+        pool.shutdown();
     }
 
     public String getRoot() {
