@@ -50,7 +50,7 @@ public class HtmlTest {
     }
     @Test
     public void test4() throws IOException {
-        Html html = new Html(Html.get("https://www.163.com"));
+        Html html = new Html(Html.get("www.sohu.com"));
         html.parseSrc().forEach(System.out::println);
     }
 }

@@ -3,7 +3,9 @@ package org.py.html;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jsoup.Jsoup;
+import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.py.util.EnvironmentUtil;
 import org.py.util.FilesUtil;
 import org.slf4j.Logger;
@@ -11,11 +13,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class UrlSave {
@@ -51,14 +55,15 @@ public class UrlSave {
      * 识别文件类型；
      * 用于url中没有明确文件名时识别文件类型；
      * 文件类型必须存在于指定允许类型
+     *
      * @param filename
      * @return
      */
     public String filetype(String filename) {
         AtomicBoolean matching = new AtomicBoolean(false);
         AtomicReference<String> re = new AtomicReference<>();
-        for(String it : allocType)
-            if(filename.toLowerCase().contains(it)) {
+        for (String it : allocType)
+            if (filename.toLowerCase().contains(it)) {
                 matching.set(true);
                 re.set(it);
             }
@@ -67,6 +72,7 @@ public class UrlSave {
 
     /**
      * 检查文件类型是否在允许范围内
+     *
      * @param type
      * @return 是否允许文件类型
      */
@@ -76,15 +82,16 @@ public class UrlSave {
 
     public String extensionFilename(String filename) {
         String extensionName = FilenameUtils.getExtension(filename);
-        if(extensionName.isEmpty())
+        if (extensionName.isEmpty())
             extensionName = filetype(filename);
-        if(!extensionName.isEmpty() && extensionName.contains("?"))
+        if (!extensionName.isEmpty() && extensionName.contains("?"))
             extensionName = extensionName.substring(0, extensionName.lastIndexOf("?"));
         return extensionName;
     }
 
     /**
      * 获得html内容
+     *
      * @param url
      * @return
      * @throws IOException
@@ -104,46 +111,56 @@ public class UrlSave {
 
     public boolean isAbstractUrl(String url, String domain) {
         domain = domainStr(domain);
-        if(url.startsWith(domain))
+        if (url.startsWith(domain))
             return true;
         return false;
     }
 
     /**
-     * 抓去远程网络文件
-     * @param domain
-     *  远程网络地址
-     * @param url
-     *  目标网络文件url
+     *
+     * @param httpUrl
+     *  保存目标url地址
      * @param savepath
-     *  本地保存路径
-     * @return
-     *  本地保存路径
+     *  保存本地地址
+     * @throws IOException
      */
-    public String getRemoteFile(String domain, String url, String savepath) {
-        File save = null;
-        try {
-            domain = domain.startsWith(Html.HTTP) || domain.startsWith(Html.HTTPS) ? domain : Html.HTTP + domain;
-            domain = domain.startsWith(domainStr(domain)) && domain.endsWith("/") ? domain : domain + "/";
-            URL httpurl = new URL(domain + url);
-            String fn;
-            String extensionName = extensionFilename(url);
-            if(extensionName.isEmpty())
-                throw new IllegalArgumentException("无法获得文件类型，操作失败！");
-            if(inAllocType(extensionName)) {
-                fn = filesUtil.randomName() + "." + extensionName;
-                save = new File(savepath + File.separator + fn);
-                FileUtils.copyURLToFile(httpurl, save);
-                LOGGER.info("保存远程文件到 " + save.getAbsolutePath());
-            } else {
-                LOGGER.info("不支持的类型，保存操作未完成！" + extensionName);
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null != save ? save.getAbsolutePath() : "";
+    public void getRemoteFile(String httpUrl, String savepath) throws IOException {
+        httpUrl = httpUrl.startsWith("http://") || httpUrl.startsWith("https://") ? httpUrl : "http://".concat(httpUrl);
+        HttpConnection connect = (HttpConnection) Jsoup.connect(httpUrl);
+        connect.timeout(1000);
+        Document document = connect.get();
+        Elements srcs = document.getElementsByAttribute("src");
+        String domain = document.baseUri().endsWith("/") ? document.baseUri() : document.baseUri().concat("/");
+        srcs.stream().map(src -> src.attr("src")).collect(Collectors.toList())
+                .forEach(src -> {
+                    try {
+                        if (src.startsWith("//"))
+                            src = src.substring(2);
+                        if (!src.startsWith("http://") && !src.startsWith("https://"))
+                            src = domain.concat(src);
+                        String ext = FilenameUtils.getExtension(src);
+                        String fn = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
+                        if (!ext.isEmpty()) {
+                            URL url = new URL(src);
+                            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                            if (httpURLConnection.getResponseMessage().equals("OK")) {
+                                File file = new File(savepath + File.separator + fn + "." + ext);
+                                if(inAllocType(ext)) {
+                                    FileUtils.copyURLToFile(url, file);
+                                    LOGGER.info("save remote files " + file.getAbsolutePath());
+                                    String content = FileUtils.readFileToString(file);
+                                    if (content.contains("404") || content.contains("405") || content.contains("502")) {
+                                        FileUtils.deleteQuietly(file);
+                                    }
+                                } else {
+                                    LOGGER.info("nonsupport file type.");
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        LOGGER.error(e.getMessage());
+                    }
+                });
     }
 
     public String getRoot() {

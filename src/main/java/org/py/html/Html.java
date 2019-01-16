@@ -30,13 +30,13 @@ public class Html extends AbstractHtmlParser {
      */
     public List<String> parseSrc() {
         Assert.notNull(document, "Document对象不能为空！");
-        String htmldomain = document.baseUri();
+        String htmldomain = document.baseUri().endsWith("/") ? document.baseUri() : document.baseUri().concat("/");
         String pruedomain = htmldomain.replace(HTTP, "").replace(HTTPS, "");
         String protocol = htmldomain.replace(pruedomain, "");
         return document.getElementsByAttribute("src").stream()
                 .map(src -> src.attr("src"))
                 .map(src -> src.startsWith("//") ? src.substring(src.indexOf("//") + 2) : src)
-                .map(src -> src.startsWith(HTTP) || src.startsWith(HTTPS) ? src : src.startsWith(pruedomain) ? protocol + src : htmldomain + "/" + src)
+                .map(src -> src.startsWith(HTTP) || src.startsWith(HTTPS) ? src : src.startsWith(pruedomain) ? protocol + src : htmldomain + src)
                 .collect(Collectors.toList());
     }
 
