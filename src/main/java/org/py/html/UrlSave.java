@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -127,18 +129,19 @@ public class UrlSave {
      * @throws IOException
      */
     public void getRemoteFile(String httpUrl, String savepath) throws IOException {
-        httpUrl = httpUrl.startsWith("http://") || httpUrl.startsWith("https://") ? httpUrl : "http://".concat(httpUrl);
-        HttpConnection connect = (HttpConnection) Jsoup.connect(httpUrl);
-        Document document = connect.get();
+        httpUrl = httpUrl.startsWith(Html.HTTP) || httpUrl.startsWith(Html.HTTPS) ? httpUrl : Html.HTTP.concat(httpUrl);
+        HttpConnection connect = (HttpConnection) Html.connect(httpUrl);
+        Document document = Html.get(connect);
+        String domain = document.baseUri().endsWith(Html.SEPARATOR) ? document.baseUri() : document.baseUri().concat(Html.SEPARATOR);
         Elements srcs = document.getElementsByAttribute("src");
-        String domain = document.baseUri().endsWith("/") ? document.baseUri() : document.baseUri().concat("/");
         ExecutorService pool = Executors.newCachedThreadPool();
+        Map<String, String> re = new LinkedHashMap<>();
         srcs.stream().map(src -> src.attr("src")).collect(Collectors.toList())
                 .forEach(src -> {
                     try {
-                        if (src.startsWith("//"))
+                        if (src.startsWith(Html.HOSTSEPARATOR))
                             src = src.substring(2);
-                        if (!src.startsWith("http://") && !src.startsWith("https://"))
+                        if (!src.startsWith(Html.HTTP) && !src.startsWith(Html.HTTPS))
                             src = domain.concat(src);
                         String ext = FilenameUtils.getExtension(src);
                         ext = ext.lastIndexOf("?") == -1 ? ext : ext.substring(ext.lastIndexOf("?") + 1);
@@ -158,9 +161,9 @@ public class UrlSave {
                                     });
                                     LOGGER.info("save remote files " + file.getAbsolutePath());
                                     String content = FileUtils.readFileToString(file);
-                                    if (content.contains("404") || content.contains("405") || content.contains("502")) {
+                                    re.put(src, file.getName());
+                                    if (content.contains("404") || content.contains("405") || content.contains("502"))
                                         FileUtils.deleteQuietly(file);
-                                    }
                                 } else {
                                     LOGGER.info("nonsupport file type." + ext);
                                 }

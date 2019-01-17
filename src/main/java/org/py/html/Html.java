@@ -1,5 +1,6 @@
 package org.py.html;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.util.Assert;
@@ -7,13 +8,27 @@ import org.springframework.util.Assert;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ *
+ * @author pythagoras
+ * @version v 0.1 2019/1/17 9:00 pythagoras
+ */
 public class Html extends AbstractHtmlParser {
+    public static Connection connect(String url) {
+        Assert.notNull(url, "必须指定url！");
+        if(!url.startsWith(HTTP) && !url.startsWith(HTTPS))
+            url = HTTP.concat(url);
+        return Jsoup.connect(url);
+    }
     public static Document get(String url) throws IOException {
+        Assert.notNull(url, "必须指定url！");
         if(!url.startsWith(HTTP) && !url.startsWith(HTTPS))
             url = HTTP.concat(url);
         Document document = Jsoup.connect(url).get();
         return document;
+    }
+    public static Document get(Connection connect) throws IOException {
+        return connect.get();
     }
 
     public Html() { }

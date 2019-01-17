@@ -1,11 +1,13 @@
 package org.py.html;
 
+import org.jsoup.nodes.Document;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public abstract class AbstractHtmlParser extends AbstractHtmlBase {
     protected final String REGEXSRC = "src=[\'\"]([^\'\"<%{]+)[\'\"]";
@@ -37,5 +39,18 @@ public abstract class AbstractHtmlParser extends AbstractHtmlBase {
                 srclist.add(group);
         }
         return srclist;
+    }
+
+    /**
+     * 使用 jsoup 获取html中的src属性url
+     * @param document
+     * @return
+     *  src属性中url的列表
+     */
+    public List<String> parseSrc(Document document) {
+        return document.getElementsByAttribute("src")
+                .stream()
+                .map(src -> src.attr("src"))
+                .collect(Collectors.toList());
     }
 }

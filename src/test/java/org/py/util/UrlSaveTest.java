@@ -71,10 +71,4 @@ public class UrlSaveTest {
         Connection connect = Jsoup.connect("www.sohu.com");
 
     }
-    @Test
-    public void u() throws IOException {
-        URL url = new URL("http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_0,y_1,w_550,h_366/os/news/75a213428f57905a4911107fac8a470d.jpg");
-        String savepath = "C:\\Users\\Administrator\\Desktop\\files";
-        FileUtils.copyURLToFile(url, new File(savepath + File.separator + "75a213428f57905a4911107fac8a470d.jpg"));
-    }
 }
