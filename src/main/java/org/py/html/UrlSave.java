@@ -128,13 +128,12 @@ public class UrlSave {
      *  保存本地地址
      * @throws IOException
      */
-    public void getRemoteFile(String httpUrl, String savepath) throws IOException {
+    public Map<String, String> getRemoteFile(String httpUrl, String savepath) throws IOException {
         httpUrl = httpUrl.startsWith(Html.HTTP) || httpUrl.startsWith(Html.HTTPS) ? httpUrl : Html.HTTP.concat(httpUrl);
         HttpConnection connect = (HttpConnection) Html.connect(httpUrl);
         Document document = Html.get(connect);
         String domain = document.baseUri().endsWith(Html.SEPARATOR) ? document.baseUri() : document.baseUri().concat(Html.SEPARATOR);
         Elements srcs = document.getElementsByAttribute("src");
-        ExecutorService pool = Executors.newCachedThreadPool();
         Map<String, String> re = new LinkedHashMap<>();
         srcs.stream().map(src -> src.attr("src")).collect(Collectors.toList())
                 .forEach(src -> {
@@ -152,16 +151,14 @@ public class UrlSave {
                             if (httpURLConnection.getResponseMessage().equals("OK")) {
                                 File file = new File(savepath + File.separator + fn + "." + ext);
                                 if(inAllocType(ext)) {
-                                    pool.execute(() -> {
-                                        try {
-                                            FileUtils.copyURLToFile(url, file);
-                                        } catch (IOException e) {
-                                            LOGGER.error(e.getMessage());
-                                        }
-                                    });
+                                    try {
+                                        FileUtils.copyURLToFile(url, file);
+                                    } catch (IOException e) {
+                                        LOGGER.error(e.getMessage());
+                                    }
                                     LOGGER.info("save remote files " + file.getAbsolutePath());
                                     String content = FileUtils.readFileToString(file);
-                                    re.put(src, file.getName());
+                                    re.put(file.getName(), src);
                                     if (content.contains("404") || content.contains("405") || content.contains("502"))
                                         FileUtils.deleteQuietly(file);
                                 } else {
@@ -173,7 +170,7 @@ public class UrlSave {
                         LOGGER.error(e.getMessage());
                     }
                 });
-        pool.shutdown();
+        return re;
     }
 
     public String getRoot() {
