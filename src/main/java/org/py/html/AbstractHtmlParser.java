@@ -8,7 +8,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
+/**
+ *
+ * @author pythagoras
+ * @version v 0.1 2019/1/17 11:02 pythagoras
+ */
 public abstract class AbstractHtmlParser extends AbstractHtmlBase {
     protected final String REGEXSRC = "src=[\'\"]([^\'\"<%{]+)[\'\"]";
     protected final String REGEXURL = "(((ht|f)tps):\\/\\/)?[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:\\/~\\+#]*[\\w\\-\\@?^=%&\\/~\\+#])?";
