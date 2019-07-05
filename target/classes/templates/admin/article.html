@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/fragments/layout::layout('文章资讯', ~{::body})}">
+<body>
+    <legend>文章资讯首页</legend>
+    <div class="container">
+        <div class="row cl">
+            <table class="table table-border table-bg table-striped radius">
+                <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>作者</th>
+                        <th>所属栏目</th>
+                        <th>是否审核</th>
+                        <th>发布日期</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="art: ${list}">
+                        <td th:text="${art.title}"></td>
+                        <td th:text="${art.author}"></td>
+                        <td th:text="${art.columntype}"></td>
+                        <td th:text="${art.isvarify}?'是':'否'"></td>
+                        <td th:text="${art.publishdatetime}"></td>
+                        <td>
+                            <a class="btn btn-link" href="javascript:;" th:onclick="edit([[${art.id}]])">编辑</a> / <a class="btn btn-link" href="javascript:;" th:onclick="del([[${art.id}]])">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div class="btn-group text-r">
+                                <span class="btn btn-default radius">
+                                    共<b th:text="${page.getPageNum()}"></b> / <b th:text="${page.getPages()}"></b>页
+                                </span>
+                                <span id="firstPage" class="btn btn-primary radius">首页</span>
+                                <span id="prevPage" class="btn btn-default radius">上一页</span>
+                                <span id="nextPage" class="btn btn-default radius">下一页</span>
+                                <span id="lastPage" class="btn btn-default radius">尾页</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function edit(id) {
+            layer_show('编辑文章', '[[@{/admin/article/}]]edit/' + id);
+        }
+        function del(id) {
+            layer.confirm('确认要删除id: ' + id + ' 的文章吗？', function(index) {
+                $.get('[[@{/admin/article/}]]del/' + id, function(data) {
+                    if(data.state == 'success')
+                        layer.msg('ID: ' + data.id + ' 文章已删除!',{icon:1,time:1000},function() {
+                            location.reload();
+                        });
+                    else
+                        layer.msg('ID: ' + data.id + ' 文章删除失败！',{icon:1, time:1000}, function() {
+                            location.reload();
+                        })
+                });
+            });
+        }
+        $(function() {
+            var pageNum = '[[${page.getPageNum()}]]';
+            var pages = '[[${page.getPages()}]]';
+            $('#firstPage').click(function () {
+                $(location).attr('href', '[[@{/admin/article/1}]]');
+            });
+            $('#prevPage').click(function () {
+                if(pageNum > 1)
+                    $(location).attr('href', '[[@{/admin/article/}]]' + (pageNum - 1));
+            });
+            $('#nextPage').click(function () {
+                if(pageNum < pages)
+                    $(location).attr('href', '[[@{/admin/article/}]]' + (pageNum + 1));
+            });
+            $('#lastPage').click(function () {
+                $(location).attr('href', '[[@{/admin/article/}]]' + pages);
+            });
+        });
+    </script>
+</body>
+</html>

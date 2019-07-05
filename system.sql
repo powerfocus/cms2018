@@ -43,4 +43,5 @@ create table user(
     role varchar(45) not null
 )engine=innodb;
 
-
+insert into role values(null, 'ADMINUSER', 'admin');
+insert into user values(null, 'admin', md5('123'), 0, now(), 'admin user', 0, 'ADMINUSER');
