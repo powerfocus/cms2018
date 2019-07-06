@@ -2,72 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="838addf8-162e-4196-99d7-90e104341322" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/053df4e7d4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/054bd3c85d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/0aacaa28e0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/10393d3a5a.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/18b1f86e9f.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/1bb96b8df5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/1e6343d807.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/243395083e.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/2614c8848f.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/2663e1f251.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/2a286cb5a8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/2c6885f8ab.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/37e4bb3a7c.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/403fe08e0e.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/4424671615.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/4e425ad0b9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/50de52f1fa.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/534e70609e.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/53fd00a0b4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/57b72cd091.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/5a416aff6c.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/5a7cb181be.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/5bd81946b0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/5c9d14c997.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/6310300940.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/63bf57fd17.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/6a4ff0cbf8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/6d0642a3a1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/78d35d0fa8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/7959c75dd8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/7a3a293c2f.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/804087b071.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/8073510470.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/94727700eb.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/96c4cc066d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/9859f8aaae.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/9ab00166af.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/9bbf5af8ec.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/a26b2c4e51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/a49675a940.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/a8a99a61c3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/afcbcfc5ee.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/b1d38adfb9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/b46b378b6f.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/b8dea24f0c.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/ba359bfaea.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/becdf9f738.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/c01f4cc455.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/c04ebb761c.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/c90af75f65.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/d292217351.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/db06656e8f.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/dba7a6023e.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/dd1b48da51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/ded22d5970.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/e11bc37eef.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/e30cc749b8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/e319e523e6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/e31d4e71ca.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/e68fccaa33.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/e6cb25a8bf.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/ee298a969b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/f357c04593.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/f6b343d0bc.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/f88e5c4a8b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/public/upload/fbc554b343.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -123,8 +58,8 @@
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="49" />
-    <option name="y" value="24" />
+    <option name="x" value="-12" />
+    <option name="y" value="17" />
     <option name="width" value="1921" />
     <option name="height" value="1000" />
   </component>
@@ -246,30 +181,42 @@
       <option name="project" value="LOCAL" />
       <updated>1562339982250</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="change 2019">
+      <created>1562340529051</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1562340529051</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="24" width="1921" height="1000" extended-state="0" />
+    <frame x="-12" y="17" width="1921" height="1000" extended-state="0" />
     <layout>
+      <window_info id="DB Browser" />
+      <window_info id="Project Explorer" />
+      <window_info id="Job Explorer" />
       <window_info id="Designer" order="0" />
       <window_info id="UI Designer" order="1" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.18054809" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.18216012" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" />
+      <window_info anchor="bottom" id="Console" />
+      <window_info anchor="bottom" id="DB Execution Console" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="2" weight="0.24018475" />
+      <window_info anchor="bottom" id="Version Control" order="2" visible="true" weight="0.24018475" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
-      <window_info anchor="bottom" id="Run" order="5" visible="true" weight="0.3290993" />
+      <window_info anchor="bottom" id="Run" order="5" weight="0.3290993" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" />
       <window_info anchor="right" id="Theme Preview" order="0" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Palette&#9;" order="2" />
