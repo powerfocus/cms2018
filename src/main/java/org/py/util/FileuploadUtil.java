@@ -1,6 +1,7 @@
 package org.py.util;
 
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.FileCopyUtils;
@@ -22,6 +23,8 @@ public class FileuploadUtil {
     private static final String UPLOADDIR = "uploaddir";
     private String savepath;
     private FilesUtil futil;
+    @Value("${debugModel}")
+    private boolean debugModel;
     private void checkDir(FileSystemResource resource) {
         if(!resource.exists())
             resource.getFile().mkdirs();
@@ -44,7 +47,8 @@ public class FileuploadUtil {
         File savefile = new File(rootdir + File.separator + savefilename);
         if(null != file && !file.isEmpty())
             FileCopyUtils.copy(file.getBytes(), new FileOutputStream(savefile));
-        log.info("upload file save to " + savefile.getAbsolutePath());
+        if(debugModel)
+            log.info("upload file save to " + savefile.getAbsolutePath());
         mp.put("dir", "");
         mp.put("filename", savefilename);
         return mp;
