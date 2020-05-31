@@ -1,24 +1,29 @@
 package org.py;
 
+import java.io.IOException;
+import java.util.Arrays;
+
 import org.py.explorer.Selector;
 import org.py.html.UrlSave;
 import org.py.mapper.ColumntypeMapper;
-import org.py.util.*;
+import org.py.util.CategoryUtil;
+import org.py.util.EnvironmentUtil;
+import org.py.util.FilesUtil;
+import org.py.util.FileuploadUtil;
+import org.py.util.RestfulUtil;
+import org.py.util.Setup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 @Configuration
 @PropertySource({"classpath:/public/systemProperties.properties", "classpath:/public/allowExtensionNames.properties", "classpath:/public/uploadConfiguration.properties"})
 public class SystemBeans {
     @Autowired
     private Environment env;
-
+    
     @Bean
     public EnvironmentUtil environmentUtil(Environment env) {
         return new EnvironmentUtil(env);

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import lombok.extern.java.Log;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/file")
+@Log
 public class FileExplorerController extends AdminController {
     @Autowired
     private Setup setup;
@@ -50,7 +53,7 @@ public class FileExplorerController extends AdminController {
     @PostMapping({"save_text"})
     public String save_text(String editor, String path) {
         Path target = Paths.get(futil.getRoot().toString(), path);
-        System.out.println("保存路径：" + target);
+        log.info("保存路径：" + target);
         return "optSuccess";
     }
     @GetMapping({"/del"})
